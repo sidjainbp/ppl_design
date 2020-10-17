@@ -2,3 +2,31 @@ smt d_smt_set a_smt_set
 d_smt_set d_smt_set d_smt
 d_smt_set d_smt
 d_smt 
+
+
+primitive_single -> DECLARE <name> COLON <datatype> SEMICOLON
+primitive_list -> DECLARE LIST OF VARIABLES <list> COLON <datatype> SEMICOLON
+
+<list> -> <list><name> | <name><name>
+<name> -> ID
+<datatype> -> integer | boolean | real
+
+
+
+rectangular_array_single ->  DECLARE <name> COLON ARRAY <dimension> SEMICOLON
+rectangular_array_list ->  DECLARE LIST OF VARIABLES <list> COLON ARRAY <dimension> OF <datatype> SEMICOLON
+<dimension> -> <dimension> SQ_OP <variable> .. <variable> SQ_CL | SQ_OP <variable> .. <variable> SQ_CL
+
+<variable> -> NUMBER | ID
+
+
+
+jagged_array_single -> DECLARE <name> COLON ARRAY <jagged_dimension> OF <datatype> SEMICOLON
+jagged_array_list ->  DECLARE LIST OF VARIABLES <list> COLON ARRAY <jagged_dimension> OF <datatype> SEMICOLON
+<jagged_dimension> -> SQ_OP NUMBER .. NUMBER SQ_CL SQ_OP SQ_CL | SQ_OP NUMBER .. NUMBER SQ_CL SQ_OP SQ_CL SQ_OP SQ_CL
+
+<jagged_row> -> R1 SQ_OP NUMBER SQ_CL COLON SIZE NUMBER COLON VALUES CURL_OP <2d_or_3d_list> CURL_CL
+<2d_or_3d_list> -> <2d_list> | <3d_list>
+<2d_list> -> NUMBER SEMICOLON <2d_list> | NUMBER
+<3d_list> -> <1d_list> SEMICOLON <3d_list> | <1d_list>
+<1d_list> -> NUMBER <1d_list> | NUMBER
