@@ -1,1 +1,4 @@
-smt d_smt a_smt
+smt d_smt_set a_smt_set
+d_smt_set d_smt_set d_smt
+d_smt_set d_smt
+d_smt 
