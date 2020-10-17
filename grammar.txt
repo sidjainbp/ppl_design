@@ -1,1 +1,1 @@
-// Grammar design document
+smt d_smt a_smt
