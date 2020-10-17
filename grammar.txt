@@ -30,3 +30,29 @@ jagged_array_list ->  DECLARE LIST OF VARIABLES <list> COLON ARRAY <jagged_dimen
 <2d_list> -> NUMBER SEMICOLON <2d_list> | NUMBER
 <3d_list> -> <1d_list> SEMICOLON <3d_list> | <1d_list>
 <1d_list> -> NUMBER <1d_list> | NUMBER
+
+/* Assignment */
+/* ##########################################################################*/
+
+assignment -> lhs EQUALS <arth_or_log_expr> SEMICOLON
+arth_or_log_expr -> <expression>
+arth_or_log_expr -> <log_exp>
+log_exp ->      <log_term> <operation3> <log_exp>
+log_exp -> <log_term>
+log_term -> ID
+log_term   -> TRUE | FALSE
+operation  -> AND | OR
+expression -> <term> <operation1> <expression>
+expression -> <term>
+term       -> <factor> <operation2> <term>    // no priority of operators
+term       -> <factor>
+factor     -> ID
+factor     -> NUMBER
+factor     -> <array_elemrnt>
+array_element -> ID <indexes>
+<indexes>     ->   SQ_OP <variable> SQ_CL <indexes> 
+<indexes>     -> SQ_OP <variable> SQ_CL
+<operation1>  -> PLUS
+<operation1>  -> MINUS
+<operation2>  -> MULTIPLY
+<operation2>  -> DIVIDE
