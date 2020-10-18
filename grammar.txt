@@ -2,7 +2,7 @@ program PROGRAM CR_OP code CR_CL
 
 code declarations assignments
 
-declarations declarations declaration 
+declarations declaration declarations
 declarations declaration
 
 declaration primitive_single
@@ -18,7 +18,7 @@ primitive_list DECLARE LIST OF VARIABLES id_list COLON datatype SEMICOLON
 rectangle_array_single DECLARE ID COLON ARRAY dimensions OF datatype SEMICOLON
 rectangle_array_list DECLARE LIST OF VARIABLES id_list COLON ARRAY dimensions OF datatype SEMICOLON
 
-dimensions dimensions dimension
+dimensions dimension dimensions
 dimensions dimension
 
 jagged_array_single DECLARE ID COLON JAGGED ARRAY jagged_dimension OF datatype SEMICOLON
@@ -32,13 +32,13 @@ jagged_row R1 SQ_OP NUMBER SQ_CL COLON SIZE NUMBER COLON VALUES CR_OP 2d_or_3d_l
 2d_or_3d_list 2d_list
 2d_or_3d_list 3d_list
 
-2d_list 2d_list SEMICOLON NUMBER
+2d_list NUMBER SEMICOLON 2d_list
 2d_list NUMBER
 
-3d_list 3d_list SEMICOLON LIST
+3d_list list SEMICOLON 3d_list
 3d_list list
 
-list list NUMBER
+list NUMBER list
 list NUMBER
 
 dimension SQ_OP index DOTDOT index SQ_CL 
@@ -50,10 +50,10 @@ datatype INTEGER
 datatype REAL
 datatype BOOLEAN
 
-id_list id_list ID
+id_list ID id_list
 id_list ID ID
 
-assignments assignments assignment
+assignments assignment assignments
 assignments assignment
 
 assignment ID ASSIGN_OP expression SEMICOLON
@@ -61,11 +61,11 @@ assignment ID ASSIGN_OP expression SEMICOLON
 expression a_expression
 expression l_expression
 
-a_expression a_expression op_1 term 
+a_expression term op_1 a_expression
 a_expression term
 
-term term op_2 factor
-term factor 
+term factor op_2 term
+term factor
 
 factor ID
 factor NUMBER 
@@ -79,12 +79,12 @@ op_1 MINUS
 op_2 MULTIPLY
 op_2 DIVIDE
 
-l_expression l_expression op_3 l_term 
+l_expression l_term OR l_expression
 l_expression l_term 
 
-l_term ID
-l_term TRUE
-l_term FALSE
+l_term bool_term AND l_term
+l_term bool_term
 
-op_3 AND
-op_3 OR
+bool_term ID
+bool_term TRUE
+bool_term FALSE
