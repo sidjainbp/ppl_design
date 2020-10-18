@@ -1,32 +1,90 @@
-smt d_smt_set a_smt_set
-d_smt_set d_smt_set d_smt
-d_smt_set d_smt
-d_smt 
+program PROGRAM CR_OP code CR_CL
 
+code declarations assignments
 
-primitive_single -> DECLARE <name> COLON <datatype> SEMICOLON
-primitive_list -> DECLARE LIST OF VARIABLES <list> COLON <datatype> SEMICOLON
+declarations declarations declaration 
+declarations declaration
 
-<list> -> <list><name> | <name><name>
-<name> -> ID
-<datatype> -> integer | boolean | real
+declaration primitive_single
+declaration primitive_list
+declaration rectangle_array_single
+declaration rectangle_array_list
+declaration jagged_array_single
+declaration jagged_array_list
 
+primitive_single DECLARE ID COLON datatype SEMICOLON
+primitive_list DECLARE LIST OF VARIABLES id_list COLON datatype SEMICOLON
 
+rectangle_array_single DECLARE ID COLON ARRAY dimensions OF datatype SEMICOLON
+rectangle_array_list DECLARE LIST OF VARIABLES id_list COLON ARRAY dimensions OF datatype SEMICOLON
 
-rectangular_array_single ->  DECLARE <name> COLON ARRAY <dimension> SEMICOLON
-rectangular_array_list ->  DECLARE LIST OF VARIABLES <list> COLON ARRAY <dimension> OF <datatype> SEMICOLON
-<dimension> -> <dimension> SQ_OP <variable> .. <variable> SQ_CL | SQ_OP <variable> .. <variable> SQ_CL
+dimensions dimensions dimension
+dimensions dimension
 
-<variable> -> NUMBER | ID
+jagged_array_single DECLARE ID COLON JAGGED ARRAY jagged_dimension OF datatype SEMICOLON
+jagged_array_list DECLARE LIST OF VARIABLES id_list COLON JAGGED ARRAY jagged_dimension OF datatype SEMICOLON
 
+jagged_dimension dimension SQ_OP SQ_CL
+jagged_dimension dimension SQ_OP SQ_CL SQ_OP SQ_CL
 
+jagged_row R1 SQ_OP NUMBER SQ_CL COLON SIZE NUMBER COLON VALUES CR_OP 2d_or_3d_list CR_CL
 
-jagged_array_single -> DECLARE <name> COLON ARRAY <jagged_dimension> OF <datatype> SEMICOLON
-jagged_array_list ->  DECLARE LIST OF VARIABLES <list> COLON ARRAY <jagged_dimension> OF <datatype> SEMICOLON
-<jagged_dimension> -> SQ_OP NUMBER .. NUMBER SQ_CL SQ_OP SQ_CL | SQ_OP NUMBER .. NUMBER SQ_CL SQ_OP SQ_CL SQ_OP SQ_CL
+2d_or_3d_list 2d_list
+2d_or_3d_list 3d_list
 
-<jagged_row> -> R1 SQ_OP NUMBER SQ_CL COLON SIZE NUMBER COLON VALUES CURL_OP <2d_or_3d_list> CURL_CL
-<2d_or_3d_list> -> <2d_list> | <3d_list>
-<2d_list> -> NUMBER SEMICOLON <2d_list> | NUMBER
-<3d_list> -> <1d_list> SEMICOLON <3d_list> | <1d_list>
-<1d_list> -> NUMBER <1d_list> | NUMBER
+2d_list 2d_list SEMICOLON NUMBER
+2d_list NUMBER
+
+3d_list 3d_list SEMICOLON LIST
+3d_list list
+
+list list NUMBER
+list NUMBER
+
+dimension SQ_OP index DOTDOT index SQ_CL 
+
+index ID 
+index NUMBER
+
+datatype INTEGER
+datatype REAL
+datatype BOOLEAN
+
+id_list id_list ID
+id_list ID ID
+
+assignments assignments assignment
+assignments assignment
+
+assignment ID ASSIGN_OP expression SEMICOLON
+
+expression a_expression
+expression l_expression
+
+a_expression a_expression op_1 term 
+a_expression term
+
+term term op_2 factor
+term factor 
+
+factor ID
+factor NUMBER 
+factor array_element
+
+array_element ID SQ_OP index SQ_CL
+
+op_1 PLUS 
+op_1 MINUS
+
+op_2 MULTIPLY
+op_2 DIVIDE
+
+l_expression l_expression op_3 l_term 
+l_expression l_term 
+
+l_term ID
+l_term TRUE
+l_term FALSE
+
+op_3 AND
+op_3 OR
