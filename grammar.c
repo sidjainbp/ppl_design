@@ -27,7 +27,7 @@ void grammar(FILE* ptr){
 	
     
     int i=0;
-	while(fscanf(ptr, "%s%[^\n]", buf) != EOF){
+	while(fgets(ptr, "%s%[^\n]", buf) != EOF){
 		lex = strtok(buf, " ");
         arr[i].token = lex;
         
