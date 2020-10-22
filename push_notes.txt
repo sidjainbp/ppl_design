@@ -1,33 +1,24 @@
-How to copy your repository
+(1) How to copy your repository
+	(a) Create a folder on your desktop called <folder name>.
+	(b) Naviagte							$ cd Desktop/<folder_name>
+	(c) To clone your GitHub repository				$ git clone <insert link of your GitHub Repository here>
+	(d) You should now have the repository checked out locally.
 
-Create a folder on your desktop called <folder name>.
-Open up Command Line on Windows or Terminal on Mac OS X
+-----------------------------------------------------------------------------------------------------------------------------------------------------
 
-In Command Line/Terminal Navigate to the CodingChallenge2020 folder on your Desktop by typing in –
-$ cd Desktop/<folder_name>
+(2) How to commit and push your changes to GitHub for it to be evaluated:
+	(a) Navigate by 						$ cd Desktop/<folder name>/<Your Repository link>
+	(b) Check all the modified files				$ git status
+	(c) To add files to commit					$ git add . 						(The ‘.’ represents to add everything you have changed)
+	(d) Commit your files to your Repo				$ git commit –m “<Insert message>”
+	(e) Push changes to master branch				$ git push
 
-Once you’re in the folder clone your GitHub repository by executing the following command –
-$ git clone <insert link of your GitHub Repository here, without the brackets>
+-----------------------------------------------------------------------------------------------------------------------------------------------------
 
-You should now have the repository checked out locally.
-Using the IDE (e.g. IntelliJ/Eclipse) of your choice, open up your local repository and make changes to the answer files.
+(3) How to Setup Upstream Remote
+	(a) Get Central Repo URL												(one time)
+	(b) Navigate, then enter                  $ git remote add upstream <central repo URL>					(one time)
+	(c) To update local repo, type            $ git pull upstream master							(every time before starting work)
+	(d) Follow (2)
 
----------------------------------------------------------------------------------------------------------------------------------------------
-
-How to commit and push your changes to GitHub for it to be evaluated:
-
-Open up Command Line/Terminal and navigate to your repository by executing this command –
-
-$ cd Desktop/<folder name without brackets>/<Your Repository without the brackets>
-
-Check all the files that you have changed -
-$ git status
-
-Marks the files that you have changed ready to be committed and pushed -
-$ git add . (The ‘.’ represents to add everything you have changed)
-
-Commit your files to your GitHub Repository
-$ git commit –m “<Insert Commit Message here, without the brackets>”
-
-Push your changes to the master branch -
-$ git push
+-----------------------------------------------------------------------------------------------------------------------------------------------------
