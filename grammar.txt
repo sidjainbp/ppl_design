@@ -86,5 +86,4 @@ l_term bool_term AND l_term
 l_term bool_term
 
 bool_term ID
-bool_term TRUE
-bool_term FALSE
+
