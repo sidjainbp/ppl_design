@@ -27,23 +27,23 @@ void grammar(FILE* ptr){
 	
     
     int i=0;
-	while(fscanf(ptr, "%s%[^\n]", buf) != EOF){
+	while(fgets(buf, sizeof(buf), ptr ) != NULL){
 		lex = strtok(buf, " ");
-        arr[i].token = lex;
-        
-        g_node *tmp,*hd=NULL;
+		arr[i].token = lex;
+
+		g_node *tmp,*hd=NULL;
 		while(lex != NULL){
 			lex = strtok(NULL, " ");
 			g_node *newnode = (g_node*) malloc(sizeof(g_node));
-            newnode->token = lex;
-            newnode->next = NULL;
-            tmp->next = newnode;
-            tmp = newnode;
-            if(hd == NULL){
-                hd = newnode;
-            }
+			newnode->token = lex;
+			newnode->next = NULL;
+			tmp->next = newnode;
+			tmp = newnode;
+			if(hd == NULL){
+				hd = newnode;
+			}
 		}
-        arr[i].head = hd;
+		arr[i].head = hd;
 		i++;
 	}
 }
