@@ -23,12 +23,10 @@ typedef struct TreeNode{
 typedef struct StackNode{
 	node_val node_values;
 	StackNode * next;
-
-
 }StackNode;
 
 void push(node_val);
 void pop(TreeNode* head);
 bool isEmpty(TreeNode * head);
-createParseTree(TreeNode* root,Token* currToken);
+bool createParseTree(TreeNode* root,Token* currToken);
 
