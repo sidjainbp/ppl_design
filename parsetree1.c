@@ -1,10 +1,12 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<ctype.h>
-#include"tokenizer.h"
-#include"parsetree1.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include "tokenizer.h"
+#include "parsetree1.h"
+
 TreeNode* root = NULL;
 currToken = NULL;
+
 /*
 typedef struct node_val{
 	bool is_terminal;
@@ -57,7 +59,7 @@ bool isEmpty(Stacknode *head){
 
 bool createParseTree(TreeNode* root,Token* currToken){
 	bool flag = true;
-	Stacknode *auxstack = NULL, *stack = NULL;
+	Stacknode *auxstack = NULL, *stack = NULL;							//auxiliary stack defined
 	int index = -1;
 	g_node *temp_g_node;
 	node_val *temp_node_val;
@@ -83,8 +85,12 @@ bool createParseTree(TreeNode* root,Token* currToken){
 			while(isEmpty(stack) == false){
 				if(stack->node_values->is_terminal){
 					if(strcmp(stack.node_values->name, currToken->lexeme) == 0){
-						
+						flag = flag & true;
+					}else{
+						flag = false;
 					}
+				}else{
+					flag = flag & createParseTree(root->child, stack.node_values->name);
 				}
 			}
 		}
