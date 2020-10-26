@@ -1,8 +1,4 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
 #include"tokenizer.h"
-#include<ctype.h>
 
 token *tokenstream ;
 
@@ -31,6 +27,9 @@ void tokenize(FILE* ptr){
 	while(fgets(buf, sizeof(buf), ptr ) != NULL){
 		//printf("hello");
 		lex = strtok(buf, " ");
+		if(lex != NULL)
+			traverse = addtoken(lex, line_no, traverse);
+		
 		while(lex != NULL){
 			lex = strtok(NULL, " ");
 			if(lex == NULL)

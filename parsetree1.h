@@ -1,6 +1,5 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include"tokenizer.h"
+#include "grammar.h"
+#include "tokenizer.h"
 
 typedef struct node_val{
 	bool is_terminal;
@@ -20,13 +19,12 @@ typedef struct TreeNode{
 	
 }TreeNode;
 
-typedef struct StackNode{
+typedef struct Stacknode{
 	node_val node_values;
-	StackNode * next;
-}StackNode;
+	Stacknode *next;
+}Stacknode;
 
-void push(node_val);
-void pop(TreeNode* head);
-bool isEmpty(TreeNode * head);
-bool createParseTree(TreeNode* root,Token* currToken);
-
+Stacknode* push(Stacknode *head, node_val n);
+Stacknode* pop(Stacknode* head);
+bool isEmpty(Stacknode *head);
+bool createParseTree(TreeNode* root);
