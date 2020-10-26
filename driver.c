@@ -19,6 +19,8 @@ int main(){
     root1 -> next = NULL;
     root1 -> child = NULL;
     createParseTree(root1);
-
+    //printgrammar();
+    print_tokens(tokenstream);
+		printparsetree(root1);
     return 0;
 }

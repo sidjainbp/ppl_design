@@ -28,3 +28,4 @@ typedef struct lhs{
 lhs arr[NUM_RULES];
 
 void grammar(FILE* ptr);
+void printgrammar();
