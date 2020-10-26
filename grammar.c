@@ -82,8 +82,7 @@ void grammar(FILE* ptr){
 				}else if(strcmp(lex,"ID") == 0){
 					newnode->token_name = ID;
 				}
-			} 
-			else{
+			}else{
 				newnode->is_terminal = false;
 			}
             newnode->next = NULL;

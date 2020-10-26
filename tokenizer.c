@@ -1,15 +1,13 @@
 #include"tokenizer.h"
 
-token *tokenstream ;
-
-int main(){
-	FILE* fptr;
-	fptr = openfile("test1.txt");
-	tokenstream = NULL;
-	tokenize(fptr);
-	print_tokens(tokenstream);
-	fclose(fptr);
-}
+// int main(){
+// 	FILE* fptr;
+// 	fptr = openfile("test1.txt");
+// 	tokenstream = NULL;
+// 	tokenize(fptr);
+// 	print_tokens(tokenstream);
+// 	fclose(fptr);
+// }
 
 FILE* openfile(char * filename){  // opens grammar file
 	FILE * ptr = fopen(filename, "r");

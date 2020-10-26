@@ -10,6 +10,7 @@ typedef struct token{
 	struct token* next;
 }token;
 
+token *tokenstream ;
 FILE* openfile(char * filename);
 void tokenize(FILE* ptr);
 token* addtoken(char * lex, int line_no, token* last_token);
