@@ -102,21 +102,14 @@ void grammar(FILE* ptr){
 	}
 }
 
-// int main(){
-//     FILE* ptr = fopen("grammar.txt","r");
-//     if(ptr == NULL){
-//         printf("ERROR!!!!!!!!");
-//         return 1;
-//     }
-    
-//     grammar(ptr);
-//     for(int i=0;i<88;i++){
-//         printf("LHS is: %s -->  ",arr[i].token);
-//         g_node* tmp = arr[i].head;
-//         while(tmp != NULL){
-//             printf("%s ",tmp->token);
-//             tmp = tmp -> next;
-//         }
-//         printf("\n");
-//     }
-// }
+void printgrammar(){
+     for(int i=0;i<88;i++){
+         printf("LHS is: %s -->  ",arr[i].token);
+         g_node* tmp = arr[i].head;
+         while(tmp != NULL){
+            printf("%s ",tmp->token);
+             tmp = tmp -> next;
+         }
+         printf("\n");
+     }
+}
