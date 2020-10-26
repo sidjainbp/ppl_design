@@ -27,10 +27,6 @@ void grammar(FILE* ptr){
     
     int i=0;
 	while(fgets(buf, sizeof(buf), ptr ) != NULL){
-<<<<<<< HEAD
-
-=======
->>>>>>> 717d270e071a0bef7c3880be01ea3995ed3baf73
         lex = strtok(buf, " ");
         strcpy(arr[i].token,lex);
         g_node *tmp=NULL,*hd=NULL;
