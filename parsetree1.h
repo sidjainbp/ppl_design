@@ -1,8 +1,8 @@
 #include "tokenizer.h"
-
+//#include"typeEx.h"
 typedef struct node_val{
 	bool is_terminal;
-	Terminal token_name;		
+	Terminal token_name;
 	int line_no;
 	char name[LEXEME_MAX];
 }node_val;
@@ -14,7 +14,7 @@ typedef struct TreeNode{
 	char name[LEXEME_MAX];
 	struct TreeNode* next;
 	struct TreeNode* child;
-	
+
 }TreeNode;
 
 typedef struct Stacknode{
