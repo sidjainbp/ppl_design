@@ -1,33 +1,5 @@
 #include "parsetree1.h"
 
-TreeNode* root = NULL;
-token *currToken;
-
-/*
-typedef struct node_val{
-	bool is_terminal;
-	Terminal token_name;		
-	int line_no;
-	char name[LEXEME_MAX];
-}node_val;
-
-
-typedef struct TreeNode{
-	bool is_terminal;
-	Terminal token_name;		//terminals
-	int line_no;
-	char name[LEXEME_MAX];
-	TreeNode* next;
-	TreeNode* child;
-}TreeNode;
-
-typedef struct StackNode{
-	node_val node_values;
-	StackNode * next;
-}StackNode;
-
-*/
-
 Stacknode* push(Stacknode *head, node_val n){
 	Stacknode* temp = (Stacknode*) malloc(sizeof(Stacknode));
 	temp->node_values = n;
@@ -82,7 +54,7 @@ bool createParseTree(TreeNode* root){
 			
 			while(isEmpty(stack) == false){
 				if(stack->node_values.is_terminal){
-					if(strcmp(stack->node_values.name, currToken->lexeme) == 0){
+					if(stack->node_values.token_name == currToken->tokenname){
 						flag = true;
 						newnode = (TreeNode *) malloc(sizeof(TreeNode));
 						newnode->is_terminal = true;
@@ -126,10 +98,13 @@ bool createParseTree(TreeNode* root){
 				}
 				
 				if(flag == false){
+					printf("Flag is false");
+					printf("%s", stack->node_values.name);
 					while(isEmpty(stack)==false){
 						stack = pop(stack);
 					}
 				}
+				printf("Flag is true");
 			}
 
 			if(flag == true){
@@ -138,6 +113,21 @@ bool createParseTree(TreeNode* root){
 
 		}
 	}	
+	
+	printf("\ncreate parse tree end");
 }
 
-
+void printparsetree(TreeNode *root1){
+	TreeNode * tempnode;
+	tempnode = root1->child;
+	if(tempnode == NULL){
+		return;
+	}
+	
+	while(tempnode != NULL){
+		printparsetree(tempnode);
+		tempnode = tempnode->next;
+	}
+	
+	printf("\n%s\t%d", root1->name, root1->is_terminal);
+}
