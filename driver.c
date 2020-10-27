@@ -20,12 +20,12 @@ int main(){
     root1 -> child = NULL;
     createParseTree(root1, currToken);
     //printgrammar();
-    //print_tokens(tokenstream);
+    print_tokens(tokenstream);
 
 	//printf("\n\n");
-	//printparsetree(root1);
-    rootptr = root1;
-    fill_typeEx(rootptr);
-    print_typeEx(table_head);
+	printparsetree(root1);
+    //rootptr = root1;
+    //fill_typeEx(rootptr);
+    //print_typeEx(table_head);
     return 0;
 }
