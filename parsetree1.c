@@ -31,15 +31,18 @@ bool createParseTree(TreeNode* root){
 	node_val *temp_node_val;
 	token *tmp_currToken = currToken;
 
-	for(int i=0; i<88; i++){
-		flag = true;
-		if(strcmp(root->name, arr[i].token) == 0){
+	for(int i=0; i<59; i++){ 			//loop for each grammar rule
+		flag = true;					//rule-matching flag
+		currToken = tmp_currToken;
+		tmp_child = root->child;
+		
+		if(strcmp(root->name, arr[i].token) == 0){				//matching lhs of grammar rule
 			temp_g_node = arr[i].head;
 			while(temp_g_node != NULL){
 				temp_node_val = (node_val *)malloc(sizeof(node_val));
-				temp_node_val->is_terminal = temp_g_node-> is_terminal; 
-				if(temp_node_val->is_terminal){
-					temp_node_val->token_name = temp_g_node -> token_name;
+				temp_node_val -> is_terminal = temp_g_node -> is_terminal; 
+				if(temp_node_val -> is_terminal){
+					temp_node_val -> token_name = temp_g_node -> token_name;
 					strcpy(temp_node_val -> name, temp_g_node -> token);
 				}
 
@@ -114,11 +117,11 @@ bool createParseTree(TreeNode* root){
 		}
 	}	
 	
-	printf("\ncreate parse tree end");
+	printf("\nCreate parse tree end");
 }
 
 void printparsetree(TreeNode *root1){
-	TreeNode * tempnode;
+	TreeNode *tempnode;
 	tempnode = root1->child;
 	if(tempnode == NULL){
 		return;
