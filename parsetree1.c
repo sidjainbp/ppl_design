@@ -62,6 +62,8 @@ token * createParseTree(TreeNode* root, token *currToken){
 			
 			
 			while(isEmpty(stack) == false){
+				printf("\n%s", stack->node_values.name);
+			
 				if(stack->node_values.is_terminal){
 					if(stack->node_values.token_name == currToken->tokenname){
 						flag = true;
@@ -84,7 +86,7 @@ token * createParseTree(TreeNode* root, token *currToken){
 						stack = pop(stack);
 						currToken = currToken->next;
 					}else{
-						printf("\nterminal not matched %s \t %s \t %s \t %d", root->name,stack->node_values.name, currToken->lexeme, currToken->line_no);
+						//printf("\nterminal not matched %s \t %s \t %s \t %d", root->name,stack->node_values.name, currToken->lexeme, currToken->line_no);
 						flag = false;
 					}
 				}else{
@@ -106,6 +108,7 @@ token * createParseTree(TreeNode* root, token *currToken){
 					currToken = createParseTree(tmp_child, currToken);
 					if(currToken == NULL){
 						flag = false;
+						//printf("\n%s", tmp_child->name);
 					}
 					
 					stack = pop(stack);
