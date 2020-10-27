@@ -8,6 +8,12 @@ void grammar(FILE* ptr){
 	while(fgets(buf, sizeof(buf), ptr ) != NULL){
 
         lex = strtok(buf, " ");
+        
+        skipspaces(lex);
+		if(strlen(lex) == 0){
+			continue;
+		}
+        
         strcpy(arr[i].token,lex);
         g_node *tmp=NULL,*hd=NULL;
 
@@ -16,7 +22,7 @@ void grammar(FILE* ptr){
             if(lex==NULL){
                 break;
             }
-            
+            skipspaces(lex);
             g_node *newnode = (g_node*) malloc(sizeof(g_node));
             strcpy(newnode->token,lex);
             if(isupper(lex[0])){
@@ -103,13 +109,22 @@ void grammar(FILE* ptr){
 }
 
 void printgrammar(){
-     for(int i=0;i<88;i++){
-         printf("LHS is: %s -->  ",arr[i].token);
+     for(int i=0;i<59;i++){
+         printf("\nLHS is: %s -->  ",arr[i].token);
          g_node* tmp = arr[i].head;
          while(tmp != NULL){
             printf("%s ",tmp->token);
              tmp = tmp -> next;
          }
-         printf("\n");
      }
+}
+
+void skipspaces(char * ch){
+	while(*ch != '\0'){
+		if(*ch == '\n'){
+			*ch = '\0';	
+			break;
+		}
+		ch++;
+	}
 }

@@ -17,42 +17,37 @@ FILE* openfile(char * filename){  // opens grammar file
 }
 
 void tokenize(FILE* ptr){
-	//char buf[BUF_MAX];
-	char *buf = NULL;
-	int len = BUF_MAX;
+	char buf[BUF_MAX];
+	//char *buf = NULL;
+	//int len = BUF_MAX;
 	token *traverse = tokenstream;  // traverse points to the last element in the tokenstream
 	char *lex; // contains single lexeme from the source code
 	
 	int line_no = 1;
-	//while(fgets(buf, sizeof(buf), ptr ) != NULL){
+	while(fgets(buf, sizeof(buf), ptr ) != NULL){
 	//while(fscanf(ptr, "%[^\n]", buf) != EOF){
-	while(getline(&buf, &len, ptr) != -1){
+	//while(getline(&buf, &len, ptr) != -1){
 		//printf("hello");
-		lex = strtok(buf, " ");
-		
-		if(lex != NULL)
-			traverse = addtoken(lex, line_no, traverse);
+		lex = strtok(buf, " \t");
 		skipspaces(lex);
+		if(strlen(lex) != 0){
+			
+			if(lex != NULL)
+				traverse = addtoken(lex, line_no, traverse);
+		}
 		while(lex != NULL){
-			lex = strtok(NULL, " ");
+			lex = strtok(NULL, " \t");
 			
 			if(lex == NULL)
 				break;
 				
 			skipspaces(lex);
-			traverse = addtoken(lex, line_no, traverse);
+			if(strlen(lex) != 0){		
+				
+				traverse = addtoken(lex, line_no, traverse);
+			}
 		}
 		line_no++;
-	}
-}
-
-void skipspaces(char * ch){
-	while(*ch != '\0'){
-		if(*ch == '\n'){
-			*ch = '\0';	
-			break;
-		}
-		ch++;
 	}
 }
 
@@ -198,7 +193,7 @@ void print_tokens(token* head_token){
 	token* temp = head_token;
 	while(temp!= NULL){
 		printf("\n--------------------------------------------\n");
-		printf("%d\t %s\t%d",temp->tokenname,temp->lexeme,temp->line_no);
+		printf("%d\t%s\t%d",temp->tokenname,temp->lexeme,temp->line_no);
 		temp = temp->next;
 			
 	}
