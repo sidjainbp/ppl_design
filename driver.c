@@ -1,5 +1,5 @@
-#include "parsetree1.h"
-
+//#include "parsetree1.h"
+#include "typeEx.h"
 int main(){
     printf("Shuru ho chuka h!\n");
 
@@ -21,8 +21,11 @@ int main(){
     createParseTree(root1, currToken);
     //printgrammar();
     //print_tokens(tokenstream);
-	
-	printf("\n\n");
-	printparsetree(root1);
+
+	//printf("\n\n");
+	//printparsetree(root1);
+    rootptr = root1;
+    fill_typeEx(rootptr);
+    print_typeEx(table_head);
     return 0;
 }
