@@ -21,36 +21,45 @@ bool isEmpty(Stacknode *head){
 	return head == NULL;
 }
 
-bool createParseTree(TreeNode* root){
+token * createParseTree(TreeNode* root, token *currToken){
 	bool flag;
 	Stacknode *auxstack = NULL, *stack = NULL;							//auxiliary stack defined
-	int index = -1;
 	g_node *temp_g_node;
 	TreeNode *tmp_child = root->child;
 	TreeNode *newnode;
 	node_val *temp_node_val;
 	token *tmp_currToken = currToken;
 
-	for(int i=0; i<88; i++){
+	for(int i=0; i<59; i++){
 		flag = true;
+		//removechild(root->child);
+		currToken = tmp_currToken;
+		//root->child = NULL;
+		//tmp_child = root->child;
+		
 		if(strcmp(root->name, arr[i].token) == 0){
 			temp_g_node = arr[i].head;
-			while(temp_g_node != NULL){
+			
+			
+			while(temp_g_node != NULL){													// 
 				temp_node_val = (node_val *)malloc(sizeof(node_val));
 				temp_node_val->is_terminal = temp_g_node-> is_terminal; 
 				if(temp_node_val->is_terminal){
 					temp_node_val->token_name = temp_g_node -> token_name;
-					strcpy(temp_node_val -> name, temp_g_node -> token);
+					
 				}
-
+				strcpy(temp_node_val -> name, temp_g_node -> token);
 				auxstack = push(auxstack, *temp_node_val);
 				temp_g_node = temp_g_node->next;
 			}
+			
 			
 			while(isEmpty(auxstack) == false){
 				stack = push(stack, auxstack->node_values);
 				auxstack = pop(auxstack);
 			}
+			
+			
 			
 			while(isEmpty(stack) == false){
 				if(stack->node_values.is_terminal){
@@ -75,6 +84,7 @@ bool createParseTree(TreeNode* root){
 						stack = pop(stack);
 						currToken = currToken->next;
 					}else{
+						printf("\nterminal not matched %s \t %s \t %s \t %d", root->name,stack->node_values.name, currToken->lexeme, currToken->line_no);
 						flag = false;
 					}
 				}else{
@@ -93,41 +103,48 @@ bool createParseTree(TreeNode* root){
 						tmp_child = newnode;
 					}
 
-					flag = flag & createParseTree(tmp_child);
+					currToken = createParseTree(tmp_child, currToken);
+					if(currToken == NULL){
+						flag = false;
+					}
+					
 					stack = pop(stack);
 				}
 				
 				if(flag == false){
-					printf("Flag is false");
-					printf("%s", stack->node_values.name);
+					//printf("\nFlag is false %s \t\t %s \t %d", root->name, currToken->lexeme, currToken->line_no);
+					//printf("%s", stack->node_values.name);
 					while(isEmpty(stack)==false){
 						stack = pop(stack);
 					}
 				}
-				printf("Flag is true");
+				//printf("Flag is true");
 			}
 
 			if(flag == true){
-				return true;
+				return currToken;
 			}
 
 		}
 	}	
-	
-	printf("\ncreate parse tree end");
+	return NULL;
+	//printf("\ncreate parse tree end %s", root->name);
 }
 
 void printparsetree(TreeNode *root1){
+	if(root1 == NULL)
+		return;
 	TreeNode * tempnode;
 	tempnode = root1->child;
-	if(tempnode == NULL){
-		return;
-	}
-	
+	printf("\n%s\t%d", root1->name, root1->is_terminal);
 	while(tempnode != NULL){
 		printparsetree(tempnode);
 		tempnode = tempnode->next;
 	}
 	
-	printf("\n%s\t%d", root1->name, root1->is_terminal);
+	
 }
+
+//removechild(root->child){
+
+//}
