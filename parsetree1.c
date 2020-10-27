@@ -62,7 +62,7 @@ token * createParseTree(TreeNode* root, token *currToken){
 			
 			
 			while(isEmpty(stack) == false){
-				printf("\n%s", stack->node_values.name);
+				//printf("\n%s", stack->node_values.name);
 			
 				if(stack->node_values.is_terminal){
 					if(stack->node_values.token_name == currToken->tokenname){
