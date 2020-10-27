@@ -8,19 +8,21 @@ int main(){
     grammar(gptr);
 
     FILE *sptr;                 //Source code file pointer
-    sptr = openfile("test1.txt");
+    sptr = openfile("t1.txt");
     tokenize(sptr);
 
     root1 = (TreeNode*)malloc(sizeof(TreeNode));
-    currToken = tokenstream;
+    token *currToken = tokenstream;
 
     root1 -> is_terminal = false;
     strcpy(root1->name, "program");
     root1 -> next = NULL;
     root1 -> child = NULL;
-    createParseTree(root1);
-    printgrammar();
+    createParseTree(root1, currToken);
+    //printgrammar();
     //print_tokens(tokenstream);
+	
+	printf("\n\n");
 	printparsetree(root1);
     return 0;
 }
