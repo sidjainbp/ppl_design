@@ -20,7 +20,7 @@ int main(){
     root1 -> child = NULL;
     createParseTree(root1, currToken);
     //printgrammar();
-    print_tokens(tokenstream);
+    //print_tokens(tokenstream);
 
 	//printf("\n\n");
 	printparsetree(root1);

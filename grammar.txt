@@ -56,15 +56,15 @@ id_list ID ID
 assignments assignment assignments
 assignments assignment
 
-assignment ID ASSIGN_OP expression SEMICOLON
+assignment ID ASSIGN_OP a_expression SEMICOLON
+assignment ID ASSIGN_OP l_expression SEMICOLON
 
-expression a_expression
-expression l_expression
-
-a_expression term op_1 a_expression
+a_expression term PLUS a_expression
+a_expression term MINUS a_expression
 a_expression term
 
-term factor op_2 term
+term factor MULTIPLY term
+term factor DIVIDE term
 term factor
 
 factor ID
@@ -72,12 +72,6 @@ factor NUMBER
 factor array_element
 
 array_element ID SQ_OP index SQ_CL
-
-op_1 PLUS 
-op_1 MINUS
-
-op_2 MULTIPLY
-op_2 DIVIDE
 
 l_expression l_term OR l_expression
 l_expression l_term 
