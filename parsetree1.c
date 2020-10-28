@@ -30,6 +30,7 @@ token * createParseTree(TreeNode* root, token *currToken){
 	node_val *temp_node_val;
 	token *tmp_currToken = currToken;
 
+
 	for(int i=0; i<200; i++){
 		flag = true;
 		//removechild(root->child);
@@ -40,13 +41,16 @@ token * createParseTree(TreeNode* root, token *currToken){
 		tmp_child = root->child;
 		
 		if(strcmp(root->name, arr[i].token) == 0){
+
 			temp_g_node = arr[i].head;
 			
 			while(temp_g_node != NULL){
 				temp_node_val = (node_val *)malloc(sizeof(node_val));
+
+
 				temp_node_val->is_terminal = temp_g_node-> is_terminal; 
 				if(temp_node_val->is_terminal){
-					temp_node_val->token_name = temp_g_node -> token_name;	
+					temp_node_val->token_name = temp_g_node -> token_name;
 				}
 				strcpy(temp_node_val -> name, temp_g_node -> token);
 				auxstack = push(auxstack, *temp_node_val);
