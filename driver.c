@@ -8,7 +8,7 @@ int main(){
     grammar(gptr);
 
     FILE *sptr;                 //Source code file pointer
-    sptr = openfile("t2.txt");
+    sptr = openfile("t1.txt");
     tokenize(sptr);
 
     root1 = (TreeNode*)malloc(sizeof(TreeNode));
