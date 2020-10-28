@@ -1,6 +1,6 @@
 #include "grammar.h"
 
-#define LEXEME_MAX 21
+#define LEXEME_MAX 50
 #define BUF_MAX 400
 
 typedef struct token{

@@ -34,6 +34,8 @@ token * createParseTree(TreeNode* root, token *currToken){
 		flag = true;
 		//removechild(root->child);
 		currToken = tmp_currToken;
+		auxstack = NULL;
+		stack = NULL;
 		root->child = NULL;
 		tmp_child = root->child;
 		
@@ -90,13 +92,15 @@ token * createParseTree(TreeNode* root, token *currToken){
 					strcpy(newnode->name,stack->node_values.name);
 					newnode->next = NULL;
 					newnode->child= NULL;
-
-					if(tmp_child==NULL){
-						root->child = newnode;
-						tmp_child = newnode;
-					}else{
-						tmp_child->next = newnode;
-						tmp_child = newnode;
+					
+					if(strcmp(newnode->name, "") != 0){
+						if(tmp_child==NULL){
+							root->child = newnode;
+							tmp_child = newnode;
+						}else{
+							tmp_child->next = newnode;
+							tmp_child = newnode;
+						}
 					}
 
 					currToken = createParseTree(tmp_child, currToken);
