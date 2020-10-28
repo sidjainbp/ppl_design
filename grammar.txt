@@ -56,11 +56,8 @@ id_list ID ID
 assignments assignment assignments
 assignments assignment
 
-assignment ID ASSIGN_OP expression SEMICOLON
-assignment array_element ASSIGN_OP expression SEMICOLON
-
-expression a_expression
-expression l_expression
+assignment ID ASSIGN_OP a_expression SEMICOLON
+assignment ID ASSIGN_OP l_expression SEMICOLON
 
 a_expression term PLUS a_expression
 a_expression term MINUS a_expression

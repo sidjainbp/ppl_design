@@ -34,10 +34,10 @@ token * createParseTree(TreeNode* root, token *currToken){
 		flag = true;
 		//removechild(root->child);
 		currToken = tmp_currToken;
-	//	auxstack = NULL;
-		//stack = NULL;
-		root->child = NULL;
-		tmp_child = root->child;
+		auxstack = NULL;
+		stack = NULL;
+		//root->child = NULL;
+		//tmp_child = root->child;
 
 		if(strcmp(root->name, arr[i].token) == 0){
 			temp_g_node = arr[i].head;
