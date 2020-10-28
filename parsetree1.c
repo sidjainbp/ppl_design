@@ -34,8 +34,8 @@ token * createParseTree(TreeNode* root, token *currToken){
 		flag = true;
 		//removechild(root->child);
 		currToken = tmp_currToken;
-		auxstack = NULL;
-		stack = NULL;
+	//	auxstack = NULL;
+		//stack = NULL;
 		root->child = NULL;
 		tmp_child = root->child;
 
