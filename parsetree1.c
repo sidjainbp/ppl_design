@@ -34,8 +34,8 @@ token * createParseTree(TreeNode* root, token *currToken){
 		flag = true;
 		//removechild(root->child);
 		currToken = tmp_currToken;
-		//root->child = NULL;
-		//tmp_child = root->child;
+		root->child = NULL;
+		tmp_child = root->child;
 		
 		if(strcmp(root->name, arr[i].token) == 0){
 			temp_g_node = arr[i].head;
@@ -61,7 +61,6 @@ token * createParseTree(TreeNode* root, token *currToken){
 			
 				if(stack->node_values.is_terminal){
 					if(stack->node_values.token_name == currToken->tokenname){
-						flag = true;
 						newnode = (TreeNode *) malloc(sizeof(TreeNode));
 						newnode->is_terminal = true;
 						newnode->token_name = currToken->tokenname;
@@ -104,9 +103,11 @@ token * createParseTree(TreeNode* root, token *currToken){
 					if(currToken == NULL){
 						flag = false;
 						//printf("\n%s", tmp_child->name);
+					}else{
+						stack = pop(stack);
 					}
 					
-					stack = pop(stack);
+					
 				}
 				
 				if(flag == false){
@@ -125,8 +126,8 @@ token * createParseTree(TreeNode* root, token *currToken){
 
 		}
 	}	
+	//printf("\ncreate parse tree returning NULL %s %s", currToken->lexeme, root->name);
 	return NULL;
-	//printf("\ncreate parse tree end %s", root->name);
 }
 
 void printparsetree(TreeNode *root1){
