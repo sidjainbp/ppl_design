@@ -41,9 +41,9 @@ jagged_row R1 SQ_OP NUMBER SQ_CL COLON SIZE NUMBER COLON VALUES CR_OP 2d_or_3d_l
 list NUMBER list
 list NUMBER
 
-dimension SQ_OP index DOTDOT index SQ_CL 
+dimension SQ_OP index DOTDOT index SQ_CL
 
-index ID 
+index ID
 index NUMBER
 
 datatype INTEGER
@@ -56,8 +56,11 @@ id_list ID ID
 assignments assignment assignments
 assignments assignment
 
-assignment ID ASSIGN_OP a_expression SEMICOLON
-assignment ID ASSIGN_OP l_expression SEMICOLON
+assignment ID ASSIGN_OP expression SEMICOLON
+assignment array_element ASSIGN_OP expression SEMICOLON
+
+expression a_expression
+expression l_expression
 
 a_expression term PLUS a_expression
 a_expression term MINUS a_expression
@@ -68,16 +71,14 @@ term factor DIVIDE term
 term factor
 
 factor ID
-factor NUMBER 
+factor NUMBER
 factor array_element
 
 array_element ID SQ_OP index SQ_CL
 
 l_expression l_term OR l_expression
-l_expression l_term 
+l_expression l_term
 
-l_term bool_term AND l_term
-l_term bool_term
-
-bool_term ID
+l_term ID AND l_term
+l_term ID
 
