@@ -30,14 +30,14 @@ token * createParseTree(TreeNode* root, token *currToken){
 	node_val *temp_node_val;
 	token *tmp_currToken = currToken;
 
-	for(int i=0; i<59; i++){
+	for(int i=0; i<200; i++){
 		flag = true;
 		//removechild(root->child);
 		currToken = tmp_currToken;
 		auxstack = NULL;
 		stack = NULL;
-		//root->child = NULL;
-		//tmp_child = root->child;
+		root->child = NULL;
+		tmp_child = root->child;
 		
 		if(strcmp(root->name, arr[i].token) == 0){
 			temp_g_node = arr[i].head;
@@ -139,7 +139,7 @@ void printparsetree(TreeNode *root1){
 		return;
 	TreeNode * tempnode;
 	tempnode = root1->child;
-	printf("\n%s\t%d", root1->name, root1->is_terminal);
+	printf("\n%s\t%d\t%d", root1->name, root1->is_terminal, root1->line_no);
 	while(tempnode != NULL){
 		printparsetree(tempnode);
 		tempnode = tempnode->next;
