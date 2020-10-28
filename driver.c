@@ -18,14 +18,16 @@ int main(){
     strcpy(root1->name, "program");
     root1 -> next = NULL;
     root1 -> child = NULL;
+
     createParseTree(root1, currToken);
+  //  rootptr = root1;
     //printgrammar();
     //print_tokens(tokenstream);
 
-	//printf("\n\n");
+printf("\n\n");
 	printparsetree(root1);
-    //rootptr = root1;
-    //fill_typeEx(rootptr);
+
+    fill_typeEx(root1);
     //print_typeEx(table_head);
     return 0;
 }

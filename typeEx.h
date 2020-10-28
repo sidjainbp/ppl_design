@@ -18,10 +18,10 @@ typedef struct tExNode{
 	int dataType;		//primitive,rectangular,jagged
 	char arrType[16];		// "static","dynamic","not_applicable
 
-	union typeEx{
+//	union typeEx{
 		Terminal Type;		// primitive- INTEGER,REAL,BOOLEAN; RECTANGULAR; JAGGED
 
-	}uType;
+	//}uType;
 	struct tExNode * next;
 
 }tExNode;
@@ -29,6 +29,6 @@ void fill_typeEx( TreeNode* rootptr);
 void fill(TreeNode* rootptr,tExNode* temp_tEx);
 void print_typeEx(tExNode * curr_line);
 
-TreeNode * rootptr;
+//TreeNode * rootptr;
 tExNode* currEntry;
 tExNode* table_head ;

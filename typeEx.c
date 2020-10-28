@@ -29,40 +29,53 @@ void fill_typeEx( TreeNode* rootptr){
 		return;
 	}
 
+
+
+	tExNode* temp_tEx = (tExNode*) malloc(sizeof(tExNode));
+	strcpy(temp_tEx-> name ,"amdin");
+	fill(rootptr,temp_tEx);
+	if(strcpy(temp_tEx-> name ,"amdin") != 0){
+
+	if(currEntry!= NULL )
+		{currEntry->next = temp_tEx;
+		currEntry = currEntry->next;}
+	else
+		{	currEntry = temp_tEx;		//first time initialisation
+			table_head = currEntry;
+		}
+		}
+	free(temp_tEx);
+
 	while(temp_node != NULL){
 		fill_typeEx(temp_node);
 		temp_node = temp_node->next;
 	}
 
-	tExNode* temp_tEx = (tExNode*) malloc(sizeof(tExNode));
-	fill(rootptr,temp_tEx);
-	if(currEntry!= NULL)
-		{currEntry->next = temp_tEx;
-		currEntry = currEntry->next;}
-	else
-		{	currEntry = temp_tEx;		//first time initialisation
-			table_head = currEntry;}
-	free(temp_tEx);
-
-
 }
-
+// tarverser is only traversing through non terminals
 
  void fill(TreeNode* rootptr,tExNode* temp_tEx){
- 	strcpy(temp_tEx -> name , rootptr -> name);
- 	temp_tEx -> uType.Type = rootptr-> token_name; // assuming only 5 of the described values
- 	if(temp_tEx-> uType.Type == INTEGER || temp_tEx-> uType.Type== REAL || temp_tEx-> uType.Type== BOOLEAN)
+	 	printf("entering fill fnc\n" );
+		printf("%d\n",rootptr->is_terminal );
+		printf("%s\n",rootptr->name );
+		if(rootptr->is_terminal){
+			printf("%s strcpy\n",temp_tEx->name );
+ 		strcpy(temp_tEx -> name , rootptr -> name);
+		printf("%s strcpy\n",temp_tEx->name );
+ 		temp_tEx -> Type = rootptr-> token_name; // assuming only 5 of the described values
+		 printf("%d\t %d Type filling\n",temp_tEx->Type,rootptr->token_name  );
+ 		if(temp_tEx-> Type == INTEGER || temp_tEx-> Type== REAL || temp_tEx-> Type== BOOLEAN)
  		{
- 			temp_tEx -> dataType = 0;
+ 			temp_tEx -> dataType = 5;
  			strcpy(temp_tEx -> arrType , "not_applicable");
  		}
- 	else if(temp_tEx -> uType.Type == JAGGED){
+ 		else if(temp_tEx -> Type == JAGGED){
 
  		temp_tEx -> dataType = 2;
  		strcpy(temp_tEx -> arrType ,"not_applicable");
 
- 	}
- 	else if(temp_tEx->uType.Type == ARRAY){
+ 																			}
+ 	else if(temp_tEx->Type == ARRAY){
 		TreeNode* temproot = rootptr->child;
 		bool ID_flag = false;
  		temp_tEx -> dataType = 1;
@@ -90,20 +103,19 @@ void fill_typeEx( TreeNode* rootptr){
 			strcpy(temp_tEx->arrType ,"static");
 
  	}
-
+}
 
  }
 
 void print_typeEx(tExNode * curr_line){
-	printf("\n printing Type Expression Table");
-	while(curr_line->next != NULL){
+	printf("\n printing Type Expression Table\n");
+//	while(curr_line->next != NULL){
 
-			printf("%s\t%d\t%s\n",curr_line->name,curr_line->dataType,curr_line->arrType );
-			curr_line = curr_line->next;
+			printf("%s\t%d\t%s\n",table_head->name,table_head->dataType,table_head->arrType );
+		//	curr_line = curr_line->next;
 
 
-	}
-
+//}
 
 
 }
