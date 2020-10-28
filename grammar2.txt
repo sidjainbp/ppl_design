@@ -1,0 +1,83 @@
+program PROGRAM BR_OP_CL CR_OP code CR_CL
+
+code declarations assignments
+
+declarations declaration declarations
+declarations declaration
+
+declaration DECLARE single_list 
+
+single_list ID COLON primitive_array_jagged_array 
+single_list LIST OF VARIABLES id_list COLON primitive_array_jagged_array
+
+id_list ID id_list
+id_list ID ID
+
+primitive_array_jagged_array ARRAY dimensions OF datatype SEMICOLON 
+primitive_array_jagged_array JAGGED ARRAY SQ_OP NUMBER DOTDOT NUMBER SQ_CL SQ_OP SQ_CL 2d_3d_diff
+primitive_array_jagged_array datatype SEMICOLON
+
+dimensions dimension dimensions
+dimensions dimension
+
+2d_3d_diff OF datatype SEMICOLON jagged_rows
+2d_3d_diff SQ_OP SQ_CL OF datatype SEMICOLON jagged_rows
+
+dimension SQ_OP f_index
+f_index ID DOTDOT s_index
+f_index NUMBER DOTDOT s_index
+s_index ID SQ_CL
+s_index NUMBER SQ_CL
+
+jagged_rows jagged_row jagged_rows
+jagged_rows jagged_row
+
+jagged_row R1 SQ_OP NUMBER SQ_CL COLON SIZE NUMBER COLON VALUES CR_OP 2d_or_3d_list CR_CL
+
+2d_or_3d_list 2d_list
+2d_or_3d_list 3d_list
+
+2d_list NUMBER SEMICOLON 2d_list
+2d_list NUMBER
+
+3d_list list SEMICOLON 3d_list
+3d_list list
+
+list NUMBER list
+list NUMBER
+
+datatype INTEGER
+datatype REAL
+datatype BOOLEAN
+
+assignments assignment assignments
+assignments assignment
+
+assignment ID ASSIGN_OP expression SEMICOLON
+
+expression a_expression
+expression l_expression
+
+a_expression term PLUS a_expression
+a_expression term MINUS a_expression
+a_expression term
+
+term factor MULTIPLY term
+term factor DIVIDE term
+term factor
+
+factor ID
+factor NUMBER 
+factor array_element
+
+array_element ID SQ_OP index SQ_CL
+index ID index
+index NUMBER index
+index ID
+index NUMBER
+
+l_expression l_term OR l_expression
+l_expression l_term 
+
+l_term ID AND l_term
+l_term ID

@@ -75,8 +75,13 @@ token* addtoken(char * lex, int line_no, token* last_token){
 		
 	}
 	
-	else if(strcmp(lex,"()") == 0){
-		new_token -> tokenname = BR_OP_CL;
+	else if(strcmp(lex,"(") == 0){
+		new_token -> tokenname = BR_OP;
+		
+	}
+	
+	else if(strcmp(lex,")") == 0){
+		new_token -> tokenname = BR_CL;
 		
 	}
 	
@@ -110,10 +115,6 @@ token* addtoken(char * lex, int line_no, token* last_token){
 	}
 	else if(strcmp(lex,"variables") == 0){
 		new_token -> tokenname = VARIABLES;
-		
-	}
-	else if(strcmp(lex,"()") == 0){
-		new_token -> tokenname = BR_OP_CL;
 		
 	}
 	else if(strcmp(lex,"array") == 0){
@@ -169,6 +170,9 @@ token* addtoken(char * lex, int line_no, token* last_token){
 		
 	}else if(strcmp(lex,"|||") == 0){
 		new_token -> tokenname = OR;
+		
+	}else if(strcmp(lex,"R1") == 0){
+		new_token -> tokenname = R1;
 		
 	}
 	else if(strcmp(lex,"&&&") == 0){

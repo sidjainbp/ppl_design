@@ -1,4 +1,4 @@
-program PROGRAM BR_OP_CL CR_OP code CR_CL
+program PROGRAM BR_OP BR_CL CR_OP code CR_CL
 
 code declarations assignments
 
@@ -21,16 +21,18 @@ rectangle_array_list DECLARE LIST OF VARIABLES id_list COLON ARRAY dimensions OF
 dimensions dimension dimensions
 dimensions dimension
 
-jagged_array_single DECLARE ID COLON JAGGED ARRAY jagged_dimension OF datatype SEMICOLON
-jagged_array_list DECLARE LIST OF VARIABLES id_list COLON JAGGED ARRAY jagged_dimension OF datatype SEMICOLON
+jagged_array_single DECLARE ID COLON JAGGED ARRAY jagged_dimension OF datatype SEMICOLON jagged_rows
+jagged_array_list DECLARE LIST OF VARIABLES id_list COLON JAGGED ARRAY jagged_dimension OF datatype SEMICOLON jagged_rows
 
-jagged_dimension dimension SQ_OP SQ_CL
-jagged_dimension dimension SQ_OP SQ_CL SQ_OP SQ_CL
 
-jagged_row R1 SQ_OP NUMBER SQ_CL COLON SIZE NUMBER COLON VALUES CR_OP 2d_or_3d_list CR_CL
+jagged_dimension SQ_OP NUMBER DOTDOT NUMBER SQ_CL SQ_OP SQ_CL SQ_OP SQ_CL
+jagged_dimension SQ_OP NUMBER DOTDOT NUMBER SQ_CL SQ_OP SQ_CL
 
-2d_or_3d_list 2d_list
-2d_or_3d_list 3d_list
+jagged_rows jagged_row jagged_rows
+jagged_rows jagged_row
+
+jagged_row R1 SQ_OP NUMBER SQ_CL COLON SIZE NUMBER COLON VALUES CR_OP 2d_list CR_CL
+jagged_row R1 SQ_OP NUMBER SQ_CL COLON SIZE NUMBER COLON VALUES CR_OP 3d_list CR_CL
 
 2d_list NUMBER SEMICOLON 2d_list
 2d_list NUMBER
@@ -41,9 +43,9 @@ jagged_row R1 SQ_OP NUMBER SQ_CL COLON SIZE NUMBER COLON VALUES CR_OP 2d_or_3d_l
 list NUMBER list
 list NUMBER
 
-dimension SQ_OP index DOTDOT index SQ_CL 
+dimension SQ_OP index DOTDOT index SQ_CL
 
-index ID 
+index ID
 index NUMBER
 
 datatype INTEGER
@@ -56,34 +58,30 @@ id_list ID ID
 assignments assignment assignments
 assignments assignment
 
-assignment ID ASSIGN_OP expression SEMICOLON
+assignment ID ASSIGN_OP a_expression SEMICOLON
+assignment ID ASSIGN_OP l_expression SEMICOLON
+assignment array_element ASSIGN_OP a_expression SEMICOLON
 
-expression a_expression
-expression l_expression
-
-a_expression term op_1 a_expression
+a_expression term PLUS a_expression
+a_expression term MINUS a_expression
 a_expression term
 
-term factor op_2 term
+term factor MULTIPLY term
+term factor DIVIDE term
 term factor
 
-factor ID
-factor NUMBER 
 factor array_element
+factor ID
+factor NUMBER
 
-array_element ID SQ_OP index SQ_CL
+array_element ID SQ_OP ele_index SQ_CL
 
-op_1 PLUS 
-op_1 MINUS
-
-op_2 MULTIPLY
-op_2 DIVIDE
+ele_index index ele_index
+ele_index index
 
 l_expression l_term OR l_expression
-l_expression l_term 
+l_expression l_term
 
-l_term bool_term AND l_term
-l_term bool_term
-
-bool_term ID
+l_term ID AND l_term
+l_term ID
 

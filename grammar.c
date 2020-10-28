@@ -29,8 +29,10 @@ void grammar(FILE* ptr){
 				newnode->is_terminal = true;
 				if(strcmp(lex,"PROGRAM") == 0){
 					newnode->token_name = PROGRAM;	
-				}else if(strcmp(lex,"BR_OP_CL") == 0){
-					newnode->token_name = BR_OP_CL;					
+				}else if(strcmp(lex,"BR_OP") == 0){
+					newnode->token_name = BR_OP;					
+				}else if(strcmp(lex,"BR_CL") == 0){
+					newnode->token_name = BR_CL;					
 				}else if(strcmp(lex,"CR_OP") == 0){
 					newnode->token_name = CR_OP;					
 				}else if(strcmp(lex,"CR_CL") == 0){
@@ -47,8 +49,6 @@ void grammar(FILE* ptr){
 					newnode->token_name = OF;					
 				}else if(strcmp(lex,"VARIABLES") == 0){
 					newnode->token_name = VARIABLES;					
-				}else if(strcmp(lex,"BR_OP_CL") == 0){
-					newnode->token_name = BR_OP_CL;					
 				}else if(strcmp(lex,"ARRAY") == 0){
 					newnode->token_name = ARRAY;					
 				}else if(strcmp(lex,"JAGGED") == 0){
@@ -85,6 +85,8 @@ void grammar(FILE* ptr){
 					newnode->token_name = AND;
 				}else if(strcmp(lex,"NUMBER") == 0){
 					newnode->token_name = NUMBER;
+				}else if(strcmp(lex,"R1") == 0){
+					newnode->token_name = R1;
 				}else if(strcmp(lex,"ID") == 0){
 					newnode->token_name = ID;
 				}
