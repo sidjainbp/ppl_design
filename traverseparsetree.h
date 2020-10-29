@@ -1,4 +1,6 @@
 #include "parsetree1.h"
+#define TABLE_SIZE 500
+
 enum type{primitive, rectangular, jagged};
 enum allocation{_static, dynamic, not_applicable};
 
@@ -62,3 +64,10 @@ typedef struct type_expression_element{
 	enum allocation arr_allocation;
     typeex type_exp;
 }type_expression_element;
+
+type_expression_element type_expression_table[TABLE_SIZE];
+int ind;
+
+void traverse(TreeNode *root);
+void traverse_declarations(TreeNode *root);
+void traverse_assignments(TreeNode *root);
