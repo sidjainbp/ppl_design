@@ -524,33 +524,8 @@ void traverse_assignment(TreeNode *root){
 	TreeNode *trav;
 	trav = root;  //assignment
 	
-	TreeNode *lhs_node, *array_id, *index_ele;
-	lhs_node = trav->child;    //lhs_node      
+	check_id_or_array(trav->child);
 
-	type_expression_element temp;
-
-	if(lhs_node->is_terminal){
-		temp = searchfromtable(lhs_node->name);
-		lhs_node->tag = temp.tag;
-		lhs_node->type_exp = temp.type_exp;
-	}
-	else{
-		array_id = lhs_node->child;
-		temp = searchfromtable(array_id->name);
-		array_id->tag = temp.tag;
-		array_id->type_exp = temp.type_exp;
-
-		if(array_id->tag == 2){
-			index_ele = array_id->next->next;
-			int l = array_id->type_exp.jagged_2d.fd_l_index;
-			int r = array_id->type_exp.jagged_2d.fd_r_index;
-			int currindex = atoi(index_ele->child->child->name);
-			if(l<currindex && ){
-
-			}
-		}
-	}
-	
 	trav = trav->child->next->next;  // a_expression or l_expression
 
 	typeex rhs_typeex;
@@ -580,6 +555,112 @@ type_expression_element searchfromtable(char *name){
 	return temp;
 }
 
+void check_id_or_array(TreeNode *lhs_node){
+
+	TreeNode *array_id, *index_ele;
+
+
+	type_expression_element temp;
+
+	if(lhs_node->is_terminal){   //checking id 
+		temp = searchfromtable(lhs_node->name);
+		lhs_node->tag = temp.tag;
+		lhs_node->type_exp = temp.type_exp;
+	}
+	else{						// checking array_element
+		array_id = lhs_node->child;
+		temp = searchfromtable(array_id->name);
+		array_id->tag = temp.tag;
+		array_id->type_exp = temp.type_exp;
+
+		if(array_id->tag == 2){  // jagged 2d       currindex - index in array element index_ele - node of index_ele of grammar
+			index_ele = array_id->next->next;
+			int l = array_id->type_exp.jagged_2d.fd_l_index;
+			int r = array_id->type_exp.jagged_2d.fd_r_index;
+			if(index_ele->child->child->token_name == NUMBER){
+				int currindex = atoi(index_ele->child->child->name);
+				if(l<currindex && r>currindex){
+					int count = currindex - l;
+					sd *temp = array_id->type_exp.jagged_2d.head;
+					while(count--){
+						temp = temp->next;
+					}
+					int size = temp->num;
+					if(index_ele->child->next->child->child->token_name == NUMBER){
+						currindex = atoi(index_ele->child->next->child->child->name);
+						if(currindex < 0 || currindex>=size){
+							//error found bound checking in 2 dim
+						}
+					}
+				}
+				else{
+					// error found bound checking in 1 dim 
+				}
+			}
+		}
+		else if(array_id->tag == 3){
+			index_ele = array_id->next->next;
+			int l = array_id->type_exp.jagged_3d.fd_l_index;
+			int r = array_id->type_exp.jagged_3d.fd_r_index;
+			if(index_ele->child->child->token_name == NUMBER){
+				int currindex = atoi(index_ele->child->child->name);
+				if(l<currindex && r>currindex){
+					int count = currindex - l;
+					td *temp_td = array_id->type_exp.jagged_2d.head;
+					while(count--){
+						temp_td = temp_td->next;
+					}
+					int size = temp_td->n;
+					if(index_ele->child->next->child->child->token_name == NUMBER){
+						currindex = atoi(index_ele->child->next->child->child->name);
+						if(currindex >= 0 && currindex < size){
+							sd *temp_sd;
+							temp_sd = temp_td->head;
+							if(index_ele->child->next->child->next->child->child->token_name == NUMBER){
+								currindex = atoi(index_ele->child->next->child->next->child->child->name);
+								while(currindex--){
+									if(temp_sd == NULL){
+										// error in 3 dim
+									}
+									temp_sd = temp_sd->next;
+								}
+							}
+						}
+						else{
+							//error found bound checking in 2 dim
+						}
+					}
+				}
+				else{
+					// error found bound checking in 1 dim 
+				}
+			}
+		}
+		else if(array_id->tag == 1){
+			index_ele = array_id->next->next;
+			int dims = array_id->type_exp.rect.dims;
+			dim_range *temp;
+			temp = array_id->type_exp.rect.head;
+			for(int i=0; i<dims; i++){
+				int l = temp->l_index;
+				int r = temp->r_index;
+				if(index_ele->child->child->token_name == NUMBER){
+					int currindex = atoi(index_ele->child->child->name);
+					if(currindex<l || currindex>r){
+						// error in i+1 dim
+						break;
+					}
+				}
+				else{
+					break;
+				}
+
+				index_ele = index_ele->child->next;
+				temp = temp->next;
+			}
+		}
+	}
+}
 
 void printparsetree(TreeNode *root1){
 
