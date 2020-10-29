@@ -28,7 +28,6 @@ void traverse_declarations(TreeNode *root){
 	}
 }
 
-
 void traverse_decl_statements(TreeNode *root){
 	TreeNode* chi = root->child;
 
@@ -737,7 +736,85 @@ void printparsetree(TreeNode *root1){
 }
 
 void printtypeexpressiontable(){
+	printf("\nField-1\t\tField-2\t\tField-3\t\tField-4");
 	for(int i=0; i<ind; i++){
-		printf("\n%s\t%s",type_expression_table[i].name, type_expression_table[i].type_exp.pri.type);
+		printf("\n%s\t",type_expression_table[i].name);
+		
+		printf("\t%d\t",type_expression_table[i]._type);
+		
+		char f3[15];
+		switch (type_expression_table[i].arr_allocation)
+		{
+		case 0:
+			strcpy(f3, "static");
+			break;
+		case 1:
+			strcpy(f3, "dynamic");
+			break;
+		default:
+			strcpy(f3, "not_applicable");
+			break;
+		}
+		printf("\t%s\t",f3);
+
+		switch (type_expression_table[i]._type)
+		{
+		case 0:
+			printf("\t<type=%s>\n", type_expression_table[i].type_exp.pri.type);
+			break;
+		case 1:
+			printf("\t<type=rectangularArray,dimensions=%d,", 
+						type_expression_table[i].type_exp.rect.dims);
+			for(int i=1; i<=type_expression_table[i].type_exp.rect.dims; i++){
+				printf("range_R%d=(",i);
+				printf("%d,%d),", atoi(type_expression_table[i].type_exp.rect.head->l_index),
+							atoi(type_expression_table[i].type_exp.rect.head->r_index));
+			}
+			printf("basicElementType=%s>\n", 
+							type_expression_table[i].type_exp.rect.elem_type);					
+			break;
+		case 2:
+			if(type_expression_table[i].tag == 2){
+				jagged_2d_exp aaa = type_expression_table[i].type_exp.jagged_2d;
+				printf("\t<type=jaggedArray,dimensions=2,");
+				printf("range_R1=(%d,%d),",aaa.fd_l_index,aaa.fd_r_index);
+				printf("range_R2=(");
+				sd* temp = type_expression_table[i].type_exp.jagged_2d.head;
+				while(temp != NULL){
+					if(temp->next != NULL){
+						printf("%d, ",temp->num);
+					}else{
+						printf("%d),", temp->num);
+					}
+					temp = temp->next;
+				}
+				printf("basicElementType=%s>\n", 
+							type_expression_table[i].type_exp.jagged_2d.elem_type);
+			}else if(type_expression_table[i].tag == 3){
+				jagged_3d_exp aaa = type_expression_table[i].type_exp.jagged_3d;
+				printf("\t<type=jaggedArray,dimensions=3,");
+				printf("range_R1=(%d,%d),",aaa.fd_l_index,aaa.fd_r_index);
+				printf("range_R2=(");
+				td* tdtemp = type_expression_table[i].type_exp.jagged_3d.head;
+				while(tdtemp != NULL){
+					printf("%d [ ", tdtemp->n);
+					sd* sdtemp = type_expression_table[i].type_exp.jagged_3d.head->head;
+					while(sdtemp != NULL){
+						if(sdtemp->next != NULL){
+							printf("%d, ",sdtemp->num);
+						}else if(sdtemp->next == NULL && tdtemp->next != NULL){
+							printf("%d], ", sdtemp->num);
+						}else if(sdtemp->next == NULL && tdtemp->next == NULL){
+							printf("%d] ", sdtemp->num);
+						}
+						sdtemp = sdtemp -> next;
+					}
+					tdtemp = tdtemp->next;
+				}
+				printf("), basicElementType=%s>\n", 
+							type_expression_table[i].type_exp.jagged_3d.elem_type);
+			}
+			break;
+		}
 	}
 }
