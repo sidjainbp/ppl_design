@@ -1,31 +1,5 @@
 #include "traverseparsetree.h"
 
-/*
-typedef struct TreeNode{
-	bool is_terminal;
-	Terminal token_name;		//terminals
-	int line_no;
-	int dep;
-	char name[LEXEME_MAX];
-	struct TreeNode* next;
-	struct TreeNode* child;
-	
-}TreeNode;
-
-void printparsetree(TreeNode *root1){
-	if(root1 == NULL)
-		return;
-	TreeNode * tempnode;
-	tempnode = root1->child;
-	printf("\n%s\t%d\t%d", root1->name, root1->is_terminal, root1->line_no);
-	while(tempnode != NULL){
-		printparsetree(tempnode);
-		tempnode = tempnode->next;
-	}
-}
-
-*/
-
 void traverse(TreeNode *root){
 	TreeNode *child = root->child;
 
@@ -53,11 +27,6 @@ void traverse_declarations(TreeNode *root){
 		tmp = tmp->child->next;
 	}
 }
-
-/*
-	WE ARE STILL POPULATING THE TYPE EXPRESSION TABLE ONLY. WE NEED TO FILL IN THE NODES WITH TYPE EXPRESSIONS TOO FOR HAVING THE 
-	ASSIGNMENT STATEMENTS TYPE CHECKED FOR ERRORS.
-*/
 
 void traverse_decl_statements(TreeNode *root){
 	TreeNode* chi = root->child;
@@ -533,5 +502,50 @@ void traverse_decl_statements(TreeNode *root){
 }
 
 void traverse_assignments(TreeNode *root){
+	TreeNode * ass_trav;
+	ass_trav = root;
 
+	while(ass_trav != NULL){
+		ass_trav = ass_trav -> child;
+		traverse_assignemnt(ass_trav);
+		ass_trav = ass_trav->next;
+	}
+}
+
+void traverse_assignment(TreeNode *root){
+	
+	
+	TreeNode *trav;
+	trav = root;  //assingment
+	TreeNode *lhs;
+	lhs = trav->child;    //lhs
+	lhs->type_exp = searchfromtable(lhs->name);
+	
+	trav = trav->child->next->next;  // a_expression or l_expression
+
+	typeex rhs_typeex;
+	if(strcmp(trav->name, "a_expression") == 0){
+		rhs_typeex = check_a_expression(trav);
+	}else{
+		rhs_typeex = check_l_expression(trav);
+	}
+}
+
+typeex check_a_expression(TreeNode* root){
+	typeex left,right;
+	left = check_term(root->child);
+	if(root->child->next != NULL){
+		right = check_a_expression(root->child->next->next);
+		
+	}
+}
+
+typeex searchfromtable(char *name){
+	typeex temp;
+	for(int i=0; i<ind; i++){
+		if(strcmp(type_expression_table[i].name, name) == 0){
+			return type_expression_table[i].type_exp;
+		}
+	}
+	return temp;
 }

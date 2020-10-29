@@ -67,8 +67,10 @@ typedef struct type_expression_element{                 //row struct in type exp
 }type_expression_element;
 
 type_expression_element type_expression_table[TABLE_SIZE];
-int ind;
+int ind = 0;
 
 void traverse(TreeNode *root);
 void traverse_declarations(TreeNode *root);
 void traverse_assignments(TreeNode *root);
+void traverse_decl_statements(TreeNode *root);
+void traverse_assignemnt(TreeNode *root)

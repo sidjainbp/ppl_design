@@ -15,7 +15,8 @@ typedef struct TreeNode{
 	char name[LEXEME_MAX];
 	struct TreeNode* next;
 	struct TreeNode* child;
-
+	int is_error;
+	typeex type_exp;
 }TreeNode;
 
 typedef struct Stacknode{
