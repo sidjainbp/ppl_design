@@ -72,7 +72,8 @@ int main(int argc,char *argv[]){
     createParseTree(root, currToken, 0);
     ind = 0;//index of type expression table
     traverse(root);
-    printparsetree(root);
+    printtypeexpressiontable();
+    //printparsetree(root);
 
     //printgrammar();
     //print_tokens(tokenstream);

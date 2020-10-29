@@ -85,6 +85,7 @@ typedef struct TreeNode{
 	struct TreeNode* next;
 	struct TreeNode* child;
 	int is_error;
+    int tag;
 	typeex type_exp;
 }TreeNode;
 

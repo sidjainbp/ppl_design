@@ -11,8 +11,8 @@ void traverse(TreeNode *root){
 	}
 
 	traverse_declarations(child->child);
-	child = child->next;
-	//traverse_assignments(child);
+	child = child->child->next;
+	traverse_assignments(child);
 
 	return;
 }
@@ -55,7 +55,8 @@ void traverse_decl_statements(TreeNode *root){
 		temp->type_exp = *t;
 		type_expression_table[ind++] = *temp;
 
-	}else if(strcmp(chi->name,"primitive_list")==0){
+	}
+	else if(strcmp(chi->name,"primitive_list")==0){
 		type_expression_element *temp = (type_expression_element *)malloc(sizeof(type_expression_element));
 		typeex *t = (typeex*)malloc(sizeof(typeex));
 
@@ -74,22 +75,22 @@ void traverse_decl_statements(TreeNode *root){
 		}else if(chi->child->token_name == BOOLEAN){
 			strcpy(t->pri.type,"boolean");
 		}
-		
+
 		while(param_list != NULL){					//assigns a type exp for the list of variables
 			if(param_list->is_terminal == false)
 				param_list = param_list->child;
 
-			strcpy(temp->name,param_list->name);
-			temp->_type = primitive;
-			temp->arr_allocation = not_applicable;
-			temp->tag = 0;
-			temp->type_exp = *t;
-			type_expression_table[ind++] = *temp;		//storing in type exp table
-
+			type_expression_table[ind].arr_allocation = not_applicable;		//storing in type exp table
+			strcpy(type_expression_table[ind].name, param_list->name);
+			type_expression_table[ind].tag = 0;
+			type_expression_table[ind].type_exp = *t;
+			type_expression_table[ind]._type = primitive;
+			ind++;
 			param_list = param_list->next;
 		}
 		
-	}else if(strcmp(chi->name,"rectangle_array_single")==0){
+	}
+	else if(strcmp(chi->name,"rectangle_array_single")==0){
 		type_expression_element *temp = (type_expression_element *)malloc(sizeof(type_expression_element));
 		typeex *t = (typeex*)malloc(sizeof(typeex));
 		chi = chi->child; //"DECLARE" node
@@ -507,15 +508,48 @@ void traverse_decl_statements(TreeNode *root){
 	}
 }
 
+void traverse_assignments(TreeNode *root){
+	TreeNode * ass_trav;
+	ass_trav = root;
+
+	while(ass_trav != NULL){
+		ass_trav = ass_trav -> child;
+		traverse_assignemnt(ass_trav);
+		ass_trav = ass_trav->next;
+	}
+}
 
 void traverse_assignment(TreeNode *root){
 	
-	
 	TreeNode *trav;
-	trav = root;  //assingment
-	TreeNode *lhs_node;
-	lhs_node = trav->child;    //lhs_node
-	lhs_node->type_exp = searchfromtable(lhs_node->name);
+	trav = root;  //assignment
+	
+	TreeNode *lhs_node, *array_id, *index_ele;
+	lhs_node = trav->child;    //lhs_node      
+
+	type_expression_element temp;
+
+	if(lhs_node->is_terminal){
+		temp = searchfromtable(lhs_node->name);
+		lhs_node->tag = temp.tag;
+		lhs_node->type_exp = temp.type_exp;
+	}
+	else{
+		array_id = lhs_node->child;
+		temp = searchfromtable(array_id->name);
+		array_id->tag = temp.tag;
+		array_id->type_exp = temp.type_exp;
+
+		if(array_id->tag == 2){
+			index_ele = array_id->next->next;
+			int l = array_id->type_exp.jagged_2d.fd_l_index;
+			int r = array_id->type_exp.jagged_2d.fd_r_index;
+			int currindex = atoi(index_ele->child->child->name);
+			if(l<currindex && ){
+
+			}
+		}
+	}
 	
 	trav = trav->child->next->next;  // a_expression or l_expression
 
@@ -527,18 +561,6 @@ void traverse_assignment(TreeNode *root){
 	}
 }
 
-void traverse_assignments(TreeNode *root){
-	TreeNode * ass_trav;
-	ass_trav = root;
-
-	while(ass_trav != NULL){
-		ass_trav = ass_trav -> child;
-		//traverse_assignemnt(ass_trav);
-		ass_trav = ass_trav->next;
-	}
-}
-
-
 typeex check_a_expression(TreeNode* root){
 	typeex left,right;
 	//left = check_term(root->child);
@@ -548,11 +570,11 @@ typeex check_a_expression(TreeNode* root){
 	}
 }
 
-typeex searchfromtable(char *name){
-	typeex temp;
+type_expression_element searchfromtable(char *name){
+	type_expression_element temp;
 	for(int i=0; i<ind; i++){
 		if(strcmp(type_expression_table[i].name, name) == 0){
-			return type_expression_table[i].type_exp;
+			return type_expression_table[i];
 		}
 	}
 	return temp;
@@ -560,15 +582,18 @@ typeex searchfromtable(char *name){
 
 
 void printparsetree(TreeNode *root1){
+
 	if(root1 == NULL)
 		return;
+
 	TreeNode * tempnode;
 	tempnode = root1->child;
-	printf("\n%s\t%d\t%d", root1->name, root1->is_terminal,root1->dep);
+
+	printf("\n%-20s%-3d%-3d", root1->name, root1->is_terminal,root1->dep);
 	//symbol name,is_terminal,depth
 
-	if(root1->child != NULL){ //leaf node	
-		//printf("\t%d\t%d",root1->token_name,root1->line_no);
+	if(root1->child == NULL){ //leaf node	
+		printf("\t%d\t%d",root1->token_name,root1->line_no);
 	}else{
 		//if non-leaf----//grammar rule
 		printf("\t-");
@@ -577,7 +602,8 @@ void printparsetree(TreeNode *root1){
 		while(strcmp(type_expression_table[i].name,root1->name)==0){
 			if(type_expression_table[i].tag == 0){
 				printf("\t<type=%s>",type_expression_table[i].type_exp.pri.type);
-			}else if(type_expression_table[i].tag == 1){
+			}
+			else if(type_expression_table[i].tag == 1){
 				int tmp = 1;
 				printf("\t<type=rectangularArray, dimensions=%d, ", type_expression_table[i].type_exp.rect.dims);
 				
@@ -588,7 +614,8 @@ void printparsetree(TreeNode *root1){
 						aaa = aaa -> next;
 				}
 				printf(" basicElementType = integer>");
-			}else if(type_expression_table[i].tag == 2){
+			}
+			else if(type_expression_table[i].tag == 2){
 				printf("\t<type =jaggedArray, dimensions=2, range_R1=(%d, %d), range_R2 = (",
 				type_expression_table[i].type_exp.jagged_2d.fd_l_index,type_expression_table[i].type_exp.jagged_2d.fd_r_index);
 
@@ -600,7 +627,8 @@ void printparsetree(TreeNode *root1){
 
 				printf("), basicElementType = integer>");
 
-			}else if(type_expression_table[i].tag == 3){
+			}
+			else if(type_expression_table[i].tag == 3){
 				printf("<type =jaggedArray, dimensions=3, range_R1=(%d, %d), range_R2 = (",
 				type_expression_table[i].type_exp.jagged_3d.fd_l_index,type_expression_table[i].type_exp.jagged_3d.fd_r_index);
 				td *aaa = type_expression_table[i].type_exp.jagged_3d.head;
@@ -624,5 +652,11 @@ void printparsetree(TreeNode *root1){
 	while(tempnode != NULL){
 		printparsetree(tempnode);
 		tempnode = tempnode->next;
+	}
+}
+
+void printtypeexpressiontable(){
+	for(int i=0; i<ind; i++){
+		printf("\n%s\t%s",type_expression_table[i].name, type_expression_table[i].type_exp.pri.type);
 	}
 }
