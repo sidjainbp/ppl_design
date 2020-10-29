@@ -133,19 +133,3 @@ token * createParseTree(TreeNode* root, token *currToken, int depth){
 	//printf("\ncreate parse tree returning NULL %s %s", currToken->lexeme, root->name);
 	return NULL;
 }
-
-void printparsetree(TreeNode *root1){
-	if(root1 == NULL)
-		return;
-	TreeNode * tempnode;
-	tempnode = root1->child;
-	printf("\n%s\t%d\t%d", root1->name, root1->is_terminal, root1->line_no);
-	while(tempnode != NULL){
-		printparsetree(tempnode);
-		tempnode = tempnode->next;
-	}
-}
-
-//removechild(root->child){
-
-//}

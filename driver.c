@@ -1,35 +1,74 @@
 #include "traverseparsetree.h"
-//#include "typeEx.h"
-int main(){
-    printf("Shuru ho chuka h!\n");
 
-    FILE *gptr;                 //Grammar file pointer
-    gptr = fopen("grammar.txt", "r");
-    grammar(gptr);
+int main(int argc,char *argv[]){
+    /*
+        Option 0: exit
+        Option 1: Create parse tree
+        Option 2: Traverse the parse tree to construct typeExpressionTable. Also print the type errors while traversing the parse tree and accessing the typeExpressionTable.
+        Option 3: Print parse tree in the specified format
+        Option 4: Print typeExpressionTable in the specified format.
+    */
+    int option=0;
+    printf("\nInitialising...");
+    printf("\nReading grammar.txt and populating the structure...");
+    readGrammar("grammar.txt");
+    printf("\nGrammar structre successfully created.");
+    printf("\n.");
+    printf("\n.");
+    printf("\nReading source code and populating tokenstream...");
+    tokeniseSourcecode(argv[1]);
+    printf("\nTokenized the source code successfully.");
 
-    FILE *sptr;                 //Source code file pointer
-    sptr = openfile("t6.txt");
-    tokenize(sptr);
+    while(true){
+        printf("\n.");
+        printf("\n.");
+        printf("\nWelcome to our assignment. Please choose your option to execute:-");
+        printf("\nOption 0: exit");
+        printf("\nOption 1: Create parse tree.");
+        printf("\nOption 2: Traverse the parse tree and print the type errors.");
+        printf("\nOption 3: Print parse tree.");
+        printf("\nOption 4: Print typeExpressionTable.");
+        printf("\nType the option number(0/1/2/3/4): ");
+        scanf("%d",&option);
 
-    root1 = (TreeNode*)malloc(sizeof(TreeNode));
-    token *currToken = tokenstream;
+        if(option < 0 || option > 4){
+            printf("\nPlease type a valid option.");
+        }else if(option==0){
+            printf("\nExiting the execution...");
+            printf("\nThank you.");
+            break;
+        }else if(option == 1){
+            printf("\nCreating parse tree...");
+            //create parse tree logic.
+            root = (TreeNode*)malloc(sizeof(TreeNode));
+            token *currToken = tokenstream;
+
+            root -> is_terminal = false;
+            root->dep = 0;
+            strcpy(root->name, "t");
+            root -> next = NULL;
+            root -> child = NULL;
+
+            createParseTree(root, currToken, 0);
+
+            printf("\nParse tree created successfully.");
+        }else if(option==2){
+            printf("\nTraversing the parse tree...");
+            //traverse and error printing logic
+            ind = 0;//index of type expression table
+            traverse(root);
+        }else if(option==3){
+            printf("\nPrinting the parse tree...");
+            printparsetree(root);
+        }else if(option==4){
+            printf("\nPrinting the type expression table...");
+            //print type expression logic
+            
+        }
+    }
     
-    root1 -> is_terminal = false;
-    root1->dep = 0;
-    strcpy(root1->name, "t");
-    root1 -> next = NULL;
-    root1 -> child = NULL;
-    
-    ind = 0;//index of type expression table
-
-    createParseTree(root1, currToken, 0);
     //printgrammar();
     //print_tokens(tokenstream);
-
-	//printf("\n\n");
-	printparsetree(root1);
-    //rootptr = root1;
-    //fill_typeEx(rootptr);
-    //print_typeEx(table_head);
+	
     return 0;
 }
