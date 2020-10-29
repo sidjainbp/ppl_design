@@ -39,6 +39,7 @@ typedef struct jagged_2d_exp{
 typedef struct td{
     int n;
     sd *head;
+    td* next;
 }td;
 
 typedef struct jagged_3d_exp{
