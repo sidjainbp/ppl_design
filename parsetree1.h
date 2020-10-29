@@ -1,8 +1,5 @@
 #include "tokenizer.h"
 
-
-
-
 enum type{primitive, rectangular, jagged};
 enum allocation{_static, dynamic, not_applicable};
 
