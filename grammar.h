@@ -10,7 +10,7 @@
 
 typedef enum{
 	PROGRAM, BR_OP, BR_CL, CR_OP, CR_CL, DECLARE, ID, COLON, SEMICOLON, LIST, OF, VARIABLES, ARRAY, JAGGED, SQ_OP, SQ_CL, NUMBER ,SIZE, 
-    VALUES, DOTDOT, INTEGER, REAL, BOOLEAN, ASSIGN_OP, PLUS, MINUS, MULTIPLY, DIVIDE, OR, AND, R1
+VALUES, DOTDOT, INTEGER, REAL, BOOLEAN, ASSIGN_OP, PLUS, MINUS, MULTIPLY, DIVIDE, OR, AND, R1 
 }Terminal;
 
 typedef struct g_node{
@@ -27,6 +27,7 @@ typedef struct lhs{
 
 lhs arr[NUM_RULES];
 
+void readGrammar(char *filename);
 void grammar(FILE* ptr);
 void printgrammar();
 void skipspaces(char * ch);
