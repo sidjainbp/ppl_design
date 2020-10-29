@@ -1,4 +1,4 @@
-program PROGRAM BR_OP BR_CL CR_OP code CR_CL
+t PROGRAM BR_OP BR_CL CR_OP code CR_CL
 
 code declarations assignments
 

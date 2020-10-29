@@ -1,29 +1,5 @@
 #include "tokenizer.h"
 
-typedef struct node_val{
-	bool is_terminal;
-	Terminal token_name;
-	int line_no;
-	char name[LEXEME_MAX];
-}node_val;
-
-typedef struct TreeNode{
-	bool is_terminal;
-	Terminal token_name;		//terminals
-	int line_no;
-	int dep;
-	char name[LEXEME_MAX];
-	struct TreeNode* next;
-	struct TreeNode* child;
-	int is_error;
-	typeex type_exp;
-}TreeNode;
-
-typedef struct Stacknode{
-	node_val node_values;
-	struct Stacknode *next;
-}Stacknode;
-
 
 
 
@@ -65,7 +41,7 @@ typedef struct jagged_2d_exp{
 typedef struct td{
     int n;
     sd *head;
-    td* next;
+    struct td* next;
 }td;
 
 typedef struct jagged_3d_exp{
@@ -92,6 +68,32 @@ typedef struct type_expression_element{                 //row struct in type exp
     typeex type_exp;
     int tag;
 }type_expression_element;
+
+typedef struct node_val{
+	bool is_terminal;
+	Terminal token_name;
+	int line_no;
+	char name[LEXEME_MAX];
+}node_val;
+
+typedef struct TreeNode{
+	bool is_terminal;
+	Terminal token_name;		//terminals
+	int line_no;
+	int dep;
+	char name[LEXEME_MAX];
+	struct TreeNode* next;
+	struct TreeNode* child;
+	int is_error;
+	typeex type_exp;
+}TreeNode;
+
+typedef struct Stacknode{
+	node_val node_values;
+	struct Stacknode *next;
+}Stacknode;
+
+
 
 TreeNode* root;
 

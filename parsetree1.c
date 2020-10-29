@@ -70,6 +70,7 @@ token * createParseTree(TreeNode* root, token *currToken, int depth){
 						newnode->line_no = currToken->line_no;
 						newnode->dep = depth+1;
 						strcpy(newnode->name,currToken->lexeme);
+						newnode->is_error = 0;
 						newnode->next = NULL;
 						newnode->child= NULL;
 
@@ -93,6 +94,7 @@ token * createParseTree(TreeNode* root, token *currToken, int depth){
 					newnode->line_no = currToken->line_no;
 					strcpy(newnode->name,stack->node_values.name);
 					newnode->dep = depth+1;
+					newnode->is_error = 0;
 					newnode->next = NULL;
 					newnode->child= NULL;
 					
