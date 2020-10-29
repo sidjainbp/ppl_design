@@ -12,7 +12,7 @@ void traverse(TreeNode *root){
 
 	traverse_declarations(child->child);
 	child = child->child->next;
-	traverse_assignments(child);
+	//traverse_assignments(child);
 
 	return;
 }
@@ -513,7 +513,7 @@ void traverse_assignments(TreeNode *root){
 
 	while(ass_trav != NULL){
 		ass_trav = ass_trav -> child;
-		traverse_assignemnt(ass_trav);
+		traverse_assignment(ass_trav);
 		ass_trav = ass_trav->next;
 	}
 }
@@ -529,7 +529,7 @@ void traverse_assignment(TreeNode *root){
 
 	typeex rhs_typeex;
 	if(strcmp(trav->name, "a_expression") == 0){
-		//rhs_typeex = check_a_expression(trav);
+		rhs_typeex = check_a_expression(trav);
 	}else{
 		//rhs_typeex = check_l_expression(trav);
 	}
@@ -605,7 +605,7 @@ void check_id_or_array(TreeNode *lhs_node){
 				int currindex = atoi(index_ele->child->child->name);
 				if(l<currindex && r>currindex){
 					int count = currindex - l;
-					td *temp_td = array_id->type_exp.jagged_2d.head;
+					td *temp_td = array_id->type_exp.jagged_3d.head;
 					while(count--){
 						temp_td = temp_td->next;
 					}
@@ -641,8 +641,8 @@ void check_id_or_array(TreeNode *lhs_node){
 			dim_range *temp;
 			temp = array_id->type_exp.rect.head;
 			for(int i=0; i<dims; i++){
-				int l = temp->l_index;
-				int r = temp->r_index;
+				int l = atoi(temp->l_index);
+				int r = atoi(temp->r_index);
 				if(index_ele->child->child->token_name == NUMBER){
 					int currindex = atoi(index_ele->child->child->name);
 					if(currindex<l || currindex>r){

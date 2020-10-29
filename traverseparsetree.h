@@ -6,10 +6,11 @@ int ind;
 
 void traverse(TreeNode *root);
 void traverse_declarations(TreeNode *root);
-void traverse_assignemnt(TreeNode *root);
-void traverse_assignments(TreeNode *root);
-void printparsetree(TreeNode *root1);
 void traverse_decl_statements(TreeNode *root);
-void printtypeexpressiontable();
+void traverse_assignments(TreeNode *root);
+void traverse_assignment(TreeNode *root);
 typeex check_a_expression(TreeNode* root);
 type_expression_element searchfromtable(char *name);
+void check_id_or_array(TreeNode *lhs_node);
+void printparsetree(TreeNode *root1);
+void printtypeexpressiontable();

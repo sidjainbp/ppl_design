@@ -73,7 +73,7 @@ int main(int argc,char *argv[]){
     ind = 0;//index of type expression table
     traverse(root);
     printtypeexpressiontable();
-    printparsetree(root);
+    //printparsetree(root);
 
     //printgrammar();
     //print_tokens(tokenstream);
