@@ -21,6 +21,11 @@ rectangle_array_list DECLARE LIST OF VARIABLES id_list COLON ARRAY dimensions OF
 dimensions dimension dimensions
 dimensions dimension
 
+dimension SQ_OP index DOTDOT index SQ_CL
+
+index ID
+index NUMBER
+
 jagged_array_single DECLARE ID COLON JAGGED ARRAY jagged_dimension OF datatype SEMICOLON jagged_rows
 jagged_array_list DECLARE LIST OF VARIABLES id_list COLON JAGGED ARRAY jagged_dimension OF datatype SEMICOLON jagged_rows
 
@@ -42,11 +47,6 @@ jagged_row R1 SQ_OP NUMBER SQ_CL COLON SIZE NUMBER COLON VALUES CR_OP 3d_list CR
 
 list NUMBER list
 list NUMBER
-
-dimension SQ_OP index DOTDOT index SQ_CL
-
-index ID
-index NUMBER
 
 datatype INTEGER
 datatype REAL
@@ -84,4 +84,3 @@ l_expression l_term
 
 l_term ID AND l_term
 l_term ID
-

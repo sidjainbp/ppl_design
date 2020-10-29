@@ -21,7 +21,7 @@ bool isEmpty(Stacknode *head){
 	return head == NULL;
 }
 
-token * createParseTree(TreeNode* root, token *currToken){
+token * createParseTree(TreeNode* root, token *currToken, int depth){
 	bool flag;
 	Stacknode *auxstack = NULL, *stack = NULL;							//auxiliary stack defined
 	g_node *temp_g_node;
@@ -41,13 +41,10 @@ token * createParseTree(TreeNode* root, token *currToken){
 		tmp_child = root->child;
 		
 		if(strcmp(root->name, arr[i].token) == 0){
-
 			temp_g_node = arr[i].head;
 			
 			while(temp_g_node != NULL){
 				temp_node_val = (node_val *)malloc(sizeof(node_val));
-
-
 				temp_node_val->is_terminal = temp_g_node-> is_terminal; 
 				if(temp_node_val->is_terminal){
 					temp_node_val->token_name = temp_g_node -> token_name;
@@ -71,6 +68,7 @@ token * createParseTree(TreeNode* root, token *currToken){
 						newnode->is_terminal = true;
 						newnode->token_name = currToken->tokenname;
 						newnode->line_no = currToken->line_no;
+						newnode->dep = depth+1;
 						strcpy(newnode->name,currToken->lexeme);
 						newnode->next = NULL;
 						newnode->child= NULL;
@@ -94,6 +92,7 @@ token * createParseTree(TreeNode* root, token *currToken){
 					newnode->is_terminal = false;
 					newnode->line_no = currToken->line_no;
 					strcpy(newnode->name,stack->node_values.name);
+					newnode->dep = depth+1;
 					newnode->next = NULL;
 					newnode->child= NULL;
 					
@@ -107,15 +106,13 @@ token * createParseTree(TreeNode* root, token *currToken){
 						}
 					}
 
-					currToken = createParseTree(tmp_child, currToken);
+					currToken = createParseTree(tmp_child, currToken,depth+1);
 					if(currToken == NULL){
 						flag = false;
 						//printf("\n%s", tmp_child->name);
 					}else{
 						stack = pop(stack);
 					}
-					
-					
 				}
 				
 				if(flag == false){
@@ -131,7 +128,6 @@ token * createParseTree(TreeNode* root, token *currToken){
 			if(flag == true){
 				return currToken;
 			}
-
 		}
 	}	
 	//printf("\ncreate parse tree returning NULL %s %s", currToken->lexeme, root->name);
@@ -148,8 +144,6 @@ void printparsetree(TreeNode *root1){
 		printparsetree(tempnode);
 		tempnode = tempnode->next;
 	}
-	
-	
 }
 
 //removechild(root->child){
