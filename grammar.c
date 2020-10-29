@@ -110,6 +110,13 @@ void grammar(FILE* ptr){
 	}
 }
 
+void readGrammar(char *filename){
+	FILE *gptr;
+    gptr = fopen(filename, "r");
+    grammar(gptr);
+}
+
+
 void printgrammar(){
      for(int i=0;i<59;i++){
          printf("\nLHS is: %s -->  ",arr[i].token);

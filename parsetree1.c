@@ -134,18 +134,33 @@ token * createParseTree(TreeNode* root, token *currToken, int depth){
 	return NULL;
 }
 
+// typedef struct TreeNode{
+//  char name[LEXEME_MAX]; --
+// 	bool is_terminal;    --
+// 	Terminal token_name;		//terminals
+// 	int line_no;
+// 	int dep; 	
+// 	struct TreeNode* next;
+// 	struct TreeNode* child;
+// }TreeNode;
+
 void printparsetree(TreeNode *root1){
 	if(root1 == NULL)
 		return;
 	TreeNode * tempnode;
 	tempnode = root1->child;
-	printf("\n%s\t%d\t%d", root1->name, root1->is_terminal, root1->line_no);
+	printf("\n%s\t%d\t%d", root1->name, root1->is_terminal,root1->dep);
+	//symbol name,is_terminal,depth
+
+	if(root1->child == NULL){ //leaf node	
+		printf("\t%d\t%d",root1->token_name,root1->line_no);
+	}else{
+		//if non-leaf----//type exp,grammar rule
+		printf("\t-\t-");
+	}
+
 	while(tempnode != NULL){
 		printparsetree(tempnode);
 		tempnode = tempnode->next;
 	}
 }
-
-//removechild(root->child){
-
-//}

@@ -1,5 +1,5 @@
 #include "tokenizer.h"
-//#include"typeEx.h"
+
 typedef struct node_val{
 	bool is_terminal;
 	Terminal token_name;
@@ -23,11 +23,10 @@ typedef struct Stacknode{
 	struct Stacknode *next;
 }Stacknode;
 
-TreeNode* root1;
+TreeNode* root;
 
 Stacknode* push(Stacknode *head, node_val n);
 Stacknode* pop(Stacknode* head);
 bool isEmpty(Stacknode *head);
 token* createParseTree(TreeNode* root, token *currToken,int depth);
 void printparsetree(TreeNode *root1);
-//TreeNode *removechild(root->child);

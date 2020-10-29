@@ -39,6 +39,7 @@ typedef struct jagged_2d_exp{
 typedef struct td{
     int n;
     sd *head;
+    td* next;
 }td;
 
 typedef struct jagged_3d_exp{
@@ -58,7 +59,7 @@ typedef union typeex{
 }typeex;
 
 
-typedef struct type_expression_element{
+typedef struct type_expression_element{                 //row struct in type expression table
 	char name[MAX_SIZE];
 	enum type _type;
 	enum allocation arr_allocation;
