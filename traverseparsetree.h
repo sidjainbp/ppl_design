@@ -58,7 +58,7 @@ typedef union typeex{
 }typeex;
 
 
-typedef struct type_expression_element{
+typedef struct type_expression_element{                 //row struct in type expression table
 	char name[MAX_SIZE];
 	enum type _type;
 	enum allocation arr_allocation;
