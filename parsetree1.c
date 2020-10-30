@@ -21,7 +21,7 @@ bool isEmpty(Stacknode *head){
 	return head == NULL;
 }
 
-token * createParseTree(TreeNode* root, token *currToken){
+token * createParseTree(TreeNode* root, token *currToken, int depth){
 	bool flag;
 	Stacknode *auxstack = NULL, *stack = NULL;							//auxiliary stack defined
 	g_node *temp_g_node;
@@ -30,7 +30,8 @@ token * createParseTree(TreeNode* root, token *currToken){
 	node_val *temp_node_val;
 	token *tmp_currToken = currToken;
 
-	for(int i=0; i<59; i++){
+
+	for(int i=0; i<200; i++){
 		flag = true;
 		//removechild(root->child);
 		currToken = tmp_currToken;
@@ -67,7 +68,9 @@ token * createParseTree(TreeNode* root, token *currToken){
 						newnode->is_terminal = true;
 						newnode->token_name = currToken->tokenname;
 						newnode->line_no = currToken->line_no;
+						newnode->dep = depth+1;
 						strcpy(newnode->name,currToken->lexeme);
+						newnode->is_error = 0;
 						newnode->next = NULL;
 						newnode->child= NULL;
 
@@ -90,6 +93,8 @@ token * createParseTree(TreeNode* root, token *currToken){
 					newnode->is_terminal = false;
 					newnode->line_no = currToken->line_no;
 					strcpy(newnode->name,stack->node_values.name);
+					newnode->dep = depth+1;
+					newnode->is_error = 0;
 					newnode->next = NULL;
 					newnode->child= NULL;
 
@@ -103,14 +108,13 @@ token * createParseTree(TreeNode* root, token *currToken){
 						}
 					}
 
-					currToken = createParseTree(tmp_child, currToken);
+					currToken = createParseTree(tmp_child, currToken,depth+1);
 					if(currToken == NULL){
 						flag = false;
 						//printf("\n%s", tmp_child->name);
 					}else{
 						stack = pop(stack);
 					}
-
 
 				}
 
@@ -127,29 +131,10 @@ token * createParseTree(TreeNode* root, token *currToken){
 			if(flag == true){
 				return currToken;
 			}
-
 		}
 	}
 	//printf("\ncreate parse tree returning NULL %s %s", currToken->lexeme, root->name);
 	return NULL;
-}
-
-void printparsetree(TreeNode *root1){
-	if(root1 == NULL)
-		return;
-	TreeNode * tempnode;
-	tempnode = root1->child;
-	printf("\n%s\t%d", root1->name, root1->is_terminal);
-	if(root1->is_terminal){printf("True\n" );}
-	else{printf("FALSE\n" );}
-	while(tempnode != NULL){
-		printparsetree(tempnode);
-		tempnode = tempnode->next;
-	}
-
 
 }
 
-//removechild(root->child){
-
-//}
