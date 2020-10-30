@@ -27,7 +27,7 @@ int main(){
 printf("\n\n");
 	printparsetree(root1);
 
-    fill_typeEx(root1);
+    //fill_typeEx(root1);
     //print_typeEx(table_head);
     return 0;
 }

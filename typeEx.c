@@ -1,4 +1,5 @@
 #include "typeEx.h"
+
 /*typedef struct TreeNode{
 	bool is_terminal;
 	Terminal token_name;
@@ -22,100 +23,100 @@
 
 }tExNode;*/
 
-void fill_typeEx( TreeNode* rootptr){
-	TreeNode * temp_node;
-	temp_node = rootptr->child;
-	if(temp_node == NULL){
-		return;
-	}
+
+void fill_typeEx(TreeNode* rootptr){
+  TreeNode* temp_root = rootptr;
+  while(temp_root-> name != declarations)
+    temp_root = temp_root->next;
+  temp_root = temp_root->child->child;   // NT i.e. declaration
+
+  while(temp_root!= NULL){
+    scan_declaration(TreeNode* temp_root);
+  }
 
 
 
-	tExNode* temp_tEx = (tExNode*) malloc(sizeof(tExNode));
-	strcpy(temp_tEx-> name ,"amdin");
-	fill(rootptr,temp_tEx);
-	if(strcpy(temp_tEx-> name ,"amdin") != 0){
 
-	if(currEntry!= NULL )
-		{currEntry->next = temp_tEx;
-		currEntry = currEntry->next;}
-	else
-		{	currEntry = temp_tEx;		//first time initialisation
-			table_head = currEntry;
-		}
-		}
-	free(temp_tEx);
-
-	while(temp_node != NULL){
-		fill_typeEx(temp_node);
-		temp_node = temp_node->next;
-	}
 
 }
-// tarverser is only traversing through non terminals
 
- void fill(TreeNode* rootptr,tExNode* temp_tEx){
-	 	printf("entering fill fnc\n" );
-		printf("%d\n",rootptr->is_terminal );
-		printf("%s\n",rootptr->name );
-		if(rootptr->is_terminal){
-			printf("%s strcpy\n",temp_tEx->name );
- 		strcpy(temp_tEx -> name , rootptr -> name);
-		printf("%s strcpy\n",temp_tEx->name );
- 		temp_tEx -> Type = rootptr-> token_name; // assuming only 5 of the described values
-		 printf("%d\t %d Type filling\n",temp_tEx->Type,rootptr->token_name  );
- 		if(temp_tEx-> Type == INTEGER || temp_tEx-> Type== REAL || temp_tEx-> Type== BOOLEAN)
- 		{
- 			temp_tEx -> dataType = 5;
- 			strcpy(temp_tEx -> arrType , "not_applicable");
- 		}
- 		else if(temp_tEx -> Type == JAGGED){
 
- 		temp_tEx -> dataType = 2;
- 		strcpy(temp_tEx -> arrType ,"not_applicable");
 
- 																			}
- 	else if(temp_tEx->Type == ARRAY){
-		TreeNode* temproot = rootptr->child;
-		bool ID_flag = false;
- 		temp_tEx -> dataType = 1;
 
-		while(temproot != NULL){
+void scan_declaration(TreeNode* temp_root){   //temp_root = primitive_list
+  tExNode* variables_list = NULL;     //ll of all variables
+  if(temp_root == NULL)
+      return;
+  TreeNode* stat_node = temp_root->child;   //stat_node = declare
 
-					TreeNode * dim_temp = temproot->child;
-					while(dim_temp != NULL){
-							if(dim_temp-> name == "index")			// confusiyaing
-								{
-									if(dim_temp->child->token_name == ID)
-									{		ID_flag = true;
-											break;}
-								}
+  while(stat_node->is_terminal)
+      stat_node = stat_node->next;      // id_list
+  Terminal curr_dataType;
+  typeEx* templist;
+  typeEx* temp_templist ;    //head of temp ll
+  scan_id(stat_node);
+  lastEntry ->next = temp_templist;
+  while(temp_templist!= NULL){
+    temp_templist->Type = curr_dataType;
+    if(curr_dataType == INTEGER|| curr_dataType == BOOLEAN || curr_dataType == REAL){
+      temp_templist->dataType = 0;
+      temp_templist->arrType = "not_applicable";
+    }
+    else if (/* condition */) {
+      /* code */
+    }
+    else if () {
+      /* code */
+    }
+  }
 
-						dim_temp = dim_temp->next;
-					}
-				if(ID_flag)
-					break;
-			temproot = temproot->next;
-		}
-		if(ID_flag)
-			strcpy(temp_tEx-> arrType , "dynamic");
-		else
-			strcpy(temp_tEx->arrType ,"static");
 
- 	}
+
+
+/*  while(stat_node->token_name == ID){     //for all tokens
+
+      tExNode* newEntry = (tExNode*) malloc(sizeof(tExNode));
+      strcpy(newEntry-> name, stat_node->name);
+      if(variables_list== NULL)
+          variables_list = newEntry;
+      else
+          variables_list->next = newEntry;
+      stat_node = stat_node->next;
+  }
+  stat_node = stat_node->next;        // colon to dataType
+
+  if(stat_node-> toke)*/
+
+void scan_id(TreeNode* curr_id){
+  if(!curr_id->is_terminal){
+    curr_id = curr_id->child;     // id
+  while(curr_id->next->token_name == ID)
+    tExNode* newEntry = (tExNode*) malloc(sizeof(tExNode));
+    strcpy(newEntry-> name, curr_id->name);
+    if(templist!= NULL){
+        templist-> next = newEntry;    //adding new entry int table
+        templist = templist->next;}
+    else{
+        templist = newEntry;
+        temp_templist = templist;     // head of list
+      }
+
+  }
+  curr_id = curr_id->next; // id_list or COLON
+  scan_id(curr_id);
+}
+else{
+      while(curr_id->is_terminal)
+        curr_id = curr_id->next;
+    // Now at datatype NT
+      curr_id= curr_id->child;    //dataType
+      curr_dataType = curr_id->token_name;
 }
 
- }
-
-void print_typeEx(tExNode * curr_line){
-	printf("\n printing Type Expression Table\n");
-//	while(curr_line->next != NULL){
-
-			printf("%s\t%d\t%s\n",table_head->name,table_head->dataType,table_head->arrType );
-		//	curr_line = curr_line->next;
+}
 
 
-//}
+
 
 
 }
