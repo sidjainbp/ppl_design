@@ -69,14 +69,12 @@ int main(int argc,char *argv[]){
     root -> next = NULL;
     root -> child = NULL;
 
+    //print_tokens(tokenstream);
     createParseTree(root, currToken, 0);
     ind = 0;//index of type expression table
     traverse(root);
     printtypeexpressiontable();
     //printparsetree(root);
-
     //printgrammar();
-    //print_tokens(tokenstream);
-	
     return 0;
 }

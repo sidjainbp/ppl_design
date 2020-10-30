@@ -30,7 +30,6 @@ token * createParseTree(TreeNode* root, token *currToken, int depth){
 	node_val *temp_node_val;
 	token *tmp_currToken = currToken;
 
-
 	for(int i=0; i<200; i++){
 		flag = true;
 		//removechild(root->child);
