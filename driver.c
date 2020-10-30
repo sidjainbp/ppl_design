@@ -56,10 +56,10 @@ int main(int argc,char *argv[]){
     //     }else if(option==4){
     //         printf("\nPrinting the type expression table...");
     //         //print type expression logic
-            
+
     //     }
     // }
-    
+
     root = (TreeNode*)malloc(sizeof(TreeNode));
     token *currToken = tokenstream;
 
@@ -70,15 +70,12 @@ int main(int argc,char *argv[]){
     root -> next = NULL;
     root -> child = NULL;
 
+    //print_tokens(tokenstream);
     createParseTree(root, currToken, 0);
     ind = 0;//index of type expression table
     traverse(root);
     printtypeexpressiontable();
     //printparsetree(root);
-
     //printgrammar();
-    //print_tokens(tokenstream);
-	
-
     return 0;
 }
