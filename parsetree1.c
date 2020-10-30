@@ -1,3 +1,11 @@
+/*
+Group No 12
+ID: 2018A7PS0240P			Name: Akshay Gundewar
+ID: 2018A7PS0228P 			Name: Kanishk Patidar
+ID: 2018A7PS0282P 			Name: Siddhant Jain
+ID: 2018A7PS0339P 			Name: Utkarsh Srivastava
+*/
+
 #include "parsetree1.h"
 
 Stacknode* push(Stacknode *head, node_val n){
@@ -30,7 +38,6 @@ token * createParseTree(TreeNode* root, token *currToken, int depth){
 	node_val *temp_node_val;
 	token *tmp_currToken = currToken;
 
-
 	for(int i=0; i<200; i++){
 		flag = true;
 		//removechild(root->child);
@@ -39,13 +46,13 @@ token * createParseTree(TreeNode* root, token *currToken, int depth){
 		stack = NULL;
 		root->child = NULL;
 		tmp_child = root->child;
-		
+
 		if(strcmp(root->name, arr[i].token) == 0){
 			temp_g_node = arr[i].head;
-			
+
 			while(temp_g_node != NULL){
 				temp_node_val = (node_val *)malloc(sizeof(node_val));
-				temp_node_val->is_terminal = temp_g_node-> is_terminal; 
+				temp_node_val->is_terminal = temp_g_node-> is_terminal;
 				if(temp_node_val->is_terminal){
 					temp_node_val->token_name = temp_g_node -> token_name;
 				}
@@ -53,15 +60,15 @@ token * createParseTree(TreeNode* root, token *currToken, int depth){
 				auxstack = push(auxstack, *temp_node_val);
 				temp_g_node = temp_g_node->next;
 			}
-			
+
 			while(isEmpty(auxstack) == false){
 				stack = push(stack, auxstack->node_values);
 				auxstack = pop(auxstack);
 			}
-			
+
 			while(isEmpty(stack) == false){
 				//printf("\n%s", stack->node_values.name);
-			
+
 				if(stack->node_values.is_terminal){
 					if(stack->node_values.token_name == currToken->tokenname){
 						newnode = (TreeNode *) malloc(sizeof(TreeNode));
@@ -70,6 +77,7 @@ token * createParseTree(TreeNode* root, token *currToken, int depth){
 						newnode->line_no = currToken->line_no;
 						newnode->dep = depth+1;
 						strcpy(newnode->name,currToken->lexeme);
+						newnode->is_error = 0;
 						newnode->next = NULL;
 						newnode->child= NULL;
 
@@ -93,9 +101,10 @@ token * createParseTree(TreeNode* root, token *currToken, int depth){
 					newnode->line_no = currToken->line_no;
 					strcpy(newnode->name,stack->node_values.name);
 					newnode->dep = depth+1;
+					newnode->is_error = 0;
 					newnode->next = NULL;
 					newnode->child= NULL;
-					
+
 					if(strcmp(newnode->name, "") != 0){
 						if(tmp_child==NULL){
 							root->child = newnode;
@@ -113,8 +122,9 @@ token * createParseTree(TreeNode* root, token *currToken, int depth){
 					}else{
 						stack = pop(stack);
 					}
+
 				}
-				
+
 				if(flag == false){
 					//printf("\nFlag is false %s \t\t %s \t %d", root->name, currToken->lexeme, currToken->line_no);
 					//printf("%s", stack->node_values.name);
@@ -129,23 +139,9 @@ token * createParseTree(TreeNode* root, token *currToken, int depth){
 				return currToken;
 			}
 		}
-	}	
+	}
 	//printf("\ncreate parse tree returning NULL %s %s", currToken->lexeme, root->name);
 	return NULL;
+
 }
 
-void printparsetree(TreeNode *root1){
-	if(root1 == NULL)
-		return;
-	TreeNode * tempnode;
-	tempnode = root1->child;
-	printf("\n%s\t%d\t%d", root1->name, root1->is_terminal, root1->line_no);
-	while(tempnode != NULL){
-		printparsetree(tempnode);
-		tempnode = tempnode->next;
-	}
-}
-
-//removechild(root->child){
-
-//}

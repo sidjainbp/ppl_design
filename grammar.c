@@ -1,3 +1,11 @@
+/*
+Group No 12
+ID: 2018A7PS0240P			Name: Akshay Gundewar
+ID: 2018A7PS0228P 			Name: Kanishk Patidar
+ID: 2018A7PS0282P 			Name: Siddhant Jain
+ID: 2018A7PS0339P 			Name: Utkarsh Srivastava
+*/
+
 #include "grammar.h"
 
 void grammar(FILE* ptr){
@@ -109,6 +117,13 @@ void grammar(FILE* ptr){
 		i++;
 	}
 }
+
+void readGrammar(char *filename){
+	FILE *gptr;
+    gptr = fopen(filename, "r");
+    grammar(gptr);
+}
+
 
 void printgrammar(){
      for(int i=0;i<59;i++){

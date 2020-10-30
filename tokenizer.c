@@ -1,3 +1,11 @@
+/*
+Group No 12
+ID: 2018A7PS0240P			Name: Akshay Gundewar
+ID: 2018A7PS0228P 			Name: Kanishk Patidar
+ID: 2018A7PS0282P 			Name: Siddhant Jain
+ID: 2018A7PS0339P 			Name: Utkarsh Srivastava
+*/
+
 #include"tokenizer.h"
 
 // int main(){
@@ -183,16 +191,16 @@ token* addtoken(char * lex, int line_no, token* last_token){
 		new_token -> tokenname = NUMBER;
 		
 	}else {
-		new_token -> tokenname = ID;
-		
+		new_token -> tokenname = ID;	
 	}
-	
-	return last_token;
-	
-	
-		
+	return last_token;		
 }
 
+void tokeniseSourcecode(char *filename){
+	FILE *sptr;                 //Source code file pointer
+    sptr = openfile(filename);  //arguement as the tc file
+    tokenize(sptr);
+}
 void print_tokens(token* head_token){
 	token* temp = head_token;
 	while(temp!= NULL){
