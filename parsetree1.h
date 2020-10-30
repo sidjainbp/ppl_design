@@ -2,6 +2,7 @@
 
 enum type{primitive, rectangular, jagged};
 enum allocation{_static, dynamic, not_applicable};
+enum base_type{integer,boolean,real,error};
 
 typedef struct pri_exp{
     char type[MAX_SIZE];

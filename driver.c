@@ -56,12 +56,13 @@ int main(int argc,char *argv[]){
     //     }else if(option==4){
     //         printf("\nPrinting the type expression table...");
     //         //print type expression logic
-            
+
     //     }
     // }
-    
+
     root = (TreeNode*)malloc(sizeof(TreeNode));
     token *currToken = tokenstream;
+
 
     root -> is_terminal = false;
     root->dep = 0;

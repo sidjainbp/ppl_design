@@ -42,7 +42,7 @@ void traverse_decl_statements(TreeNode *root){
 		temp->tag = 0;
 		chi = chi -> next; //"COLON" node
 		chi = chi -> next; //"datatype" node
-		
+
 		if(chi->child->token_name == INTEGER){
 			strcpy(t->pri.type,"integer");
 		}else if(chi->child->token_name == REAL){
@@ -63,10 +63,10 @@ void traverse_decl_statements(TreeNode *root){
 		chi = chi->next->next->next;  // "VARIABLES" node
 		chi = chi->next; //"id_list" node
 		TreeNode *param_list = chi; // saving the names of variables to be entered in type exp table
-		
+
 		chi = chi -> next; //"COLON" node
 		chi = chi -> next; //"datatype" node
-		
+
 		if(chi->child->token_name == INTEGER){
 			strcpy(t->pri.type,"integer");
 		}else if(chi->child->token_name == REAL){
@@ -87,7 +87,7 @@ void traverse_decl_statements(TreeNode *root){
 			ind++;
 			param_list = param_list->next;
 		}
-		
+
 	}
 	else if(strcmp(chi->name,"rectangle_array_single")==0){
 		type_expression_element *temp = (type_expression_element *)malloc(sizeof(type_expression_element));
@@ -101,7 +101,7 @@ void traverse_decl_statements(TreeNode *root){
 		chi = chi -> next; //"COLON" node
 		chi = chi -> next; //"ARRAY" node
 		chi = chi -> next; //"dimensions" node
-		
+
 		dim_range *rangeHead, *travPointer, *newDim;
 		TreeNode *d = chi;
 		int no_of_dims = 0;
@@ -130,7 +130,7 @@ void traverse_decl_statements(TreeNode *root){
 			}
 			d = d->next;
 		}
-		
+
 		strcpy(t->rect.type,"rectangularArray");
 		strcpy(t->rect.elem_type,"integer");
 		t->rect.dims = no_of_dims;
@@ -154,7 +154,7 @@ void traverse_decl_statements(TreeNode *root){
 		chi = chi -> next; //"COLON" node
 		chi = chi -> next; //"ARRAY" node
 		chi = chi -> next; //"dimensions" node
-		
+
 		dim_range *rangeHead, *travPointer, *newDim;
 		TreeNode *d = chi;
 		int no_of_dims = 1;
@@ -184,7 +184,7 @@ void traverse_decl_statements(TreeNode *root){
 			}
 			d = d->next;
 		}
-		
+
 		strcpy(t->rect.type,"rectangularArray");
 		strcpy(t->rect.elem_type,"integer");
 		t->rect.dims = no_of_dims;
@@ -204,7 +204,7 @@ void traverse_decl_statements(TreeNode *root){
 	else if(strcmp(chi->name,"jagged_array_single")==0){
 		type_expression_element *temp = (type_expression_element*)malloc(sizeof(type_expression_element));
 		typeex *t = (typeex*)malloc(sizeof(typeex));
-		
+
 		TreeNode *jagged_row;
 
 		chi = chi->child; //"DECLARE" node
@@ -213,7 +213,7 @@ void traverse_decl_statements(TreeNode *root){
 
 		temp->_type = jagged;
 		temp->arr_allocation = not_applicable;
-		
+
 		chi = chi -> next; //"COLON" node
 		chi = chi -> next; //"JAGGED" node
 		chi = chi -> next; //"ARRAY" node
@@ -233,7 +233,7 @@ void traverse_decl_statements(TreeNode *root){
 			chi = chi -> next -> next -> next -> next;			//"jagged_rows" node
 			int r_val = t->jagged_2d.fd_r_index;
 			int l_val = t->jagged_2d.fd_l_index;
-		
+
 			bool flag = true;			//Flag for wrong index
 			bool flag2 = true;			//Flag for wrong size-count
 			TreeNode *tptr = chi;
@@ -270,7 +270,7 @@ void traverse_decl_statements(TreeNode *root){
 						flag2 = false;
 						break;
 					}
-				}			
+				}
 			}
 			t->jagged_2d.head = sd_head;
 		}
@@ -291,7 +291,7 @@ void traverse_decl_statements(TreeNode *root){
 
 			bool flag = true;			//Flag for wrong index
 			bool flag2 = true;			//Flag for wrong size-count
-			
+
 			TreeNode *tptr = chi;
 			for(int i=l_val; i<=r_val; i++){
 				tptr = tptr -> child;							//"jagged_row" node
@@ -312,7 +312,7 @@ void traverse_decl_statements(TreeNode *root){
 					}
 					temp_trav = temp_trav->next->next->next->next;		//3d_list node
 					int size = td_new->n;
-					
+
 
 					sd *sd_trav, *sd_head = NULL, *sd_new;
 					TreeNode *inside3d = temp_trav;				//3d_list node
@@ -342,7 +342,7 @@ void traverse_decl_statements(TreeNode *root){
 						flag2 = false;
 						break;
 					}
-				}			
+				}
 			}
 			t->jagged_3d.head = td_head;
 		}
@@ -353,9 +353,9 @@ void traverse_decl_statements(TreeNode *root){
 	else if(strcmp(chi->name,"jagged_array_list")==0){
 		type_expression_element *temp = (type_expression_element*)malloc(sizeof(type_expression_element));
 		typeex *t = (typeex*)malloc(sizeof(typeex));
-		
+
 		TreeNode *jagged_row;
-		
+
 		chi = chi->child; //"DECLARE" node
 		chi = chi->next->next->next;  // "VARIABLES" node
 		chi = chi->next; //"id_list" node
@@ -363,7 +363,7 @@ void traverse_decl_statements(TreeNode *root){
 
 		temp->_type = jagged;
 		temp->arr_allocation = not_applicable;
-		
+
 		chi = chi -> next; //"COLON" node
 		chi = chi -> next; //"JAGGED" node
 		chi = chi -> next; //"ARRAY" node
@@ -383,7 +383,7 @@ void traverse_decl_statements(TreeNode *root){
 			chi = chi -> next -> next -> next -> next;			//"jagged_rows" node
 			int r_val = t->jagged_2d.fd_r_index;
 			int l_val = t->jagged_2d.fd_l_index;
-		
+
 			bool flag = true;			//Flag for wrong index
 			bool flag2 = true;			//Flag for wrong size-count
 			TreeNode *tptr = chi;
@@ -420,7 +420,7 @@ void traverse_decl_statements(TreeNode *root){
 						flag2 = false;
 						break;
 					}
-				}			
+				}
 			}
 			t->jagged_2d.head = sd_head;
 		}
@@ -441,7 +441,7 @@ void traverse_decl_statements(TreeNode *root){
 
 			bool flag = true;			//Flag for wrong index
 			bool flag2 = true;			//Flag for wrong size-count
-			
+
 			TreeNode *tptr = chi;
 			for(int i=l_val; i<=r_val; i++){
 				tptr = tptr -> child;							//"jagged_row" node
@@ -462,7 +462,7 @@ void traverse_decl_statements(TreeNode *root){
 					}
 					temp_trav = temp_trav->next->next->next->next;		//3d_list node
 					int size = td_new->n;
-					
+
 
 					sd *sd_trav, *sd_head = NULL, *sd_new;
 					TreeNode *inside3d = temp_trav;				//3d_list node
@@ -492,7 +492,7 @@ void traverse_decl_statements(TreeNode *root){
 						flag2 = false;
 						break;
 					}
-				}			
+				}
 			}
 			t->jagged_3d.head = td_head;
 		}
@@ -521,28 +521,84 @@ void traverse_assignments(TreeNode *root){
 }
 
 void traverse_assignment(TreeNode *root){
-	
+
 	TreeNode *trav;
 	trav = root;  //assignment
-	
-	check_id_or_array(trav->child);
 
+	check_id_or_array(trav->child);
+	base_type lhs_base_type = return_base_type(trav->child);
 	trav = trav->child->next->next;  // a_expression or l_expression
 
-	typeex rhs_typeex;
+	base_type rhs_base_type;
 	if(strcmp(trav->name, "a_expression") == 0){
-		rhs_typeex = check_a_expression(trav);
-	}else{
-		//rhs_typeex = check_l_expression(trav);
+		rhs_base_type = check_a_expression(trav);
+	}
+	else{
+		rhs_base_type = check_l_expression(trav);
+	}
+	if(lhs_base_type != rhs_base_type)
+		//error lhs!= rhs typex
+
+}
+base_type return_base_type(TreeNode* root){
+	if(root->is_error){
+		return error;
+	}
+
+
+		if(root->is_terminal){
+				if(root->token_name == ID){
+						switch(root->tag){
+							case 0:{
+										if(strcmp(root->type_exp.pri.type,"integer")==0)
+												return integer;
+										else if(strcmp(root->type_exp.pri.type,"boolean")==0)
+												return boolean;
+										else if(strcmp(root->type_exp.pri.type,"real")==0)
+												return real;
+
+							}
+							case 1:
+										return integer;
+							case 2:
+										return integer;
+							case 3:
+										return integer;
+
+						}
+				}
+			else{
+				return integer;
+			}
+
+		}
+		else{			//non-terminal
+					return integer;
+		}
+
+}
+
+base_type check_a_expression(TreeNode* root){
+	base_type left,right;
+	//left = check_term(root->child);
+	left = check_term(root->child);
+	if(root->child->next != NULL){
+		right = check_a_expression(root->child->next->next);
+		if(left != right)
+			// error
+		else
+				return left;
+	}
+	else{
+		return check_term(root->child);
 	}
 }
 
-typeex check_a_expression(TreeNode* root){
-	typeex left,right;
-	//left = check_term(root->child);
+base_type check_term(TreeNode* root){
+	base_type left,right;
+	left = check_factor(root->child);
 	if(root->child->next != NULL){
-		right = check_a_expression(root->child->next->next);
-
+		right
 	}
 }
 
@@ -563,7 +619,7 @@ void check_id_or_array(TreeNode *lhs_node){
 
 	type_expression_element temp;
 
-	if(lhs_node->is_terminal){   //checking id 
+	if(lhs_node->is_terminal){   //checking id
 		temp = searchfromtable(lhs_node->name);
 		lhs_node->tag = temp.tag;
 		lhs_node->type_exp = temp.type_exp;
@@ -595,7 +651,7 @@ void check_id_or_array(TreeNode *lhs_node){
 					}
 				}
 				else{
-					// error found bound checking in 1 dim 
+					// error found bound checking in 1 dim
 				}
 			}
 		}
@@ -633,7 +689,7 @@ void check_id_or_array(TreeNode *lhs_node){
 					}
 				}
 				else{
-					// error found bound checking in 1 dim 
+					// error found bound checking in 1 dim
 				}
 			}
 		}
@@ -674,7 +730,7 @@ void printparsetree(TreeNode *root1){
 	printf("\n%-20s%-3d%-3d", root1->name, root1->is_terminal,root1->dep);
 	//symbol name,is_terminal,depth
 
-	if(root1->child == NULL){ //leaf node	
+	if(root1->child == NULL){ //leaf node
 		printf("\t%d\t%d",root1->token_name,root1->line_no);
 	}else{
 		//if non-leaf----//grammar rule
@@ -688,7 +744,7 @@ void printparsetree(TreeNode *root1){
 			else if(type_expression_table[i].tag == 1){
 				int tmp = 1;
 				printf("\t<type=rectangularArray, dimensions=%d, ", type_expression_table[i].type_exp.rect.dims);
-				
+
 				dim_range *aaa = type_expression_table[i].type_exp.rect.head;
 				while(aaa != NULL){
 						printf("range_R%d= (%s, %s),",tmp,aaa->l_index,aaa->r_index);
@@ -724,7 +780,7 @@ void printparsetree(TreeNode *root1){
 					printf("] ,");
 					aaa = aaa->next;
 				}
-				
+
 				printf(" ), basicElementType = integer>");
 			}
 			i++;
@@ -741,9 +797,9 @@ void printtypeexpressiontable(){
 	printf("\nField-1\t\tField-2\t\tField-3\t\t\tField-4");
 	for(int i=0; i<ind; i++){
 		printf("\n%s\t",type_expression_table[i].name);
-		
+
 		printf("\t%d\t",type_expression_table[i]._type);
-		
+
 		char f3[15];
 		switch (type_expression_table[i].arr_allocation)
 		{
@@ -764,17 +820,17 @@ void printtypeexpressiontable(){
 				printf("\t<type=%s>\n", type_expression_table[i].type_exp.pri.type);
 				break;
 			case 1:
-				printf("\t<type=rectangularArray,dimensions=%d,", 
+				printf("\t<type=rectangularArray,dimensions=%d,",
 							type_expression_table[i].type_exp.rect.dims-1);
 				dim_range* temp = type_expression_table[i].type_exp.rect.head;
 
 				for(int j=1; j<type_expression_table[i].type_exp.rect.dims; j++){
 					printf("range_R%d=(",j);
 					printf("%d,%d),", atoi(temp->l_index), atoi(temp->r_index));
-					temp = temp->next;	
+					temp = temp->next;
 				}
-				printf("basicElementType=%s>\n", 
-								type_expression_table[i].type_exp.rect.elem_type);					
+				printf("basicElementType=%s>\n",
+								type_expression_table[i].type_exp.rect.elem_type);
 				break;
 			case 2:
 				if(type_expression_table[i].tag == 2){
@@ -791,7 +847,7 @@ void printtypeexpressiontable(){
 						}
 						temp = temp->next;
 					}
-					printf("basicElementType=%s>\n", 
+					printf("basicElementType=%s>\n",
 								type_expression_table[i].type_exp.jagged_2d.elem_type);
 				}else if(type_expression_table[i].tag == 3){
 					jagged_3d_exp aaa = type_expression_table[i].type_exp.jagged_3d;
@@ -814,7 +870,7 @@ void printtypeexpressiontable(){
 						}
 						tdtemp = tdtemp->next;
 					}
-					printf("), basicElementType=%s>\n", 
+					printf("), basicElementType=%s>\n",
 								type_expression_table[i].type_exp.jagged_3d.elem_type);
 				}
 				break;
