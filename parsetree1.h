@@ -1,3 +1,11 @@
+/*
+Group No 12
+ID: 2018A7PS0240P			Name: Akshay Gundewar
+ID: 2018A7PS0228P 			Name: Kanishk Patidar
+ID: 2018A7PS0282P 			Name: Siddhant Jain
+ID: 2018A7PS0339P 			Name: Utkarsh Srivastava
+*/
+
 #include "tokenizer.h"
 
 enum type{primitive, rectangular, jagged};
@@ -65,6 +73,7 @@ typedef struct type_expression_element{                 //row struct in type exp
 	enum allocation arr_allocation;
     typeex type_exp;
     int tag;
+    int is_error;
 }type_expression_element;
 
 typedef struct node_val{
@@ -94,7 +103,6 @@ typedef struct Stacknode{
 
 
 
-TreeNode* root;
 
 Stacknode* push(Stacknode *head, node_val n);
 Stacknode* pop(Stacknode* head);
